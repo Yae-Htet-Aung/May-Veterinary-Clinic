@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@icongo/fi": "^1.2.0",
+    "@mantine/core": "^7.3.2",
+    "@mantine/hooks": "^7.3.2",
+    "@tabler/icons-react": "^2.44.0",
+    "flowbite-react": "^0.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.12.0",
     "react-spring": "^9.7.3",
     "styled-components": "^6.1.1"

@@ -10,6 +10,7 @@ import { Modal } from './Modal'
 import { Dropdown } from 'flowbite-react';
 import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
+import toast from 'react-hot-toast'
 
 
 
@@ -29,17 +30,26 @@ const button = styled.button`
 `;
 
 const PatientList = ({ active }) => {
+  
 
   const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState([
+  // const [data, setData] = useState([
+  //   { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '23.3.2000', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
+  //   { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '3.3.2001', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
+  //   { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2.3.2002', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
+  // ])
+  const [list, setList ] = useState(data)
+  const data = [
     { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '23.3.2000', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '3.3.2001', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2.3.2002', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
-  ])
+  ]
+
+  const [updatedData, setUpdatedData ] = useState([])
   // console.log('before clk >> ', showModal)
 
   // get data from modal
-  const modelData = (e) =>
+  const modelData = (e) => 
   [
     setData([e, ...data])
   ]
@@ -73,14 +83,35 @@ const PatientList = ({ active }) => {
   // filter end
 
   // option box
+  // const deleteData = (id) => {
+  //   console.log('id is >> ', id)
+  //   // delete data[id];
+  //   array.splice(1, 1);
+  //   // setData(data)
+  //   console.log('data: deleteDat block >> ', data)
+  // }
+
   const deleteData = (id) => {
+    console.log(data[id])
+    const newData = data.filter(data => data.id !== id)
+    setList(newData)
+    
+    newData=console.log('data after rm >> ', data)
+    // setData(newData)
 
-    delete data[id];
-    modelData(data)
-    console.log(data)
-  }
+    notify()
 
+    // console.log('updatedData', updatedData)
+    // setData(updatedData);
+    // console.log(`Object with id '${idToDelete}' deleted successfully.`);
+  };
   // option box end
+
+  // notification
+  const notify = () => {
+    toast.success('successfully deleted!')
+  }
+  // notification end
 
 
   return (
@@ -183,7 +214,7 @@ const PatientList = ({ active }) => {
                       <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
                         renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
                         <Dropdown.Item className='bg-stone-100 dropdownItems'><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(i) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id)}}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
                       </Dropdown>
                     </td>
                   </tr>

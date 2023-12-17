@@ -132,11 +132,11 @@ label {
   display: none;
   padding: 3px;
 
-  >p {
-    padding: 0 10px;
-    cursor: pointer;
-    font-size: 13px;
-  }
+}
+.filterBtn >p {
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 13px;
 }
 
 .filterBtn.active {

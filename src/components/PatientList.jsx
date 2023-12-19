@@ -12,7 +12,6 @@ import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
 import Allergy from '../assets/resources/allergy.png'
 import PickyEater from '../assets/resources/picky eater.png'
-import SweetAlert from 'sweetalert2';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -80,12 +79,7 @@ const PatientList = ({ active }) => {
 
   // option box
   const deleteAlert = () => {
-    // console.log('delete alert called')
-    SweetAlert.fire({
-      title: 'Confirmation',
-      text: 'Your message goes here',
-      icon: 'warning', // Can be 'success', 'error', 'warning', 'info', etc.
-    });
+    console.log('delete alert called')
   }
   // option box end
 

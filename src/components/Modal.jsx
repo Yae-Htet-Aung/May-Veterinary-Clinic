@@ -73,7 +73,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
     // custom toast
     toast.custom((t) => (
       <div
-        className={`${t.visible ? 'animate-enter' : 'animate-leave' } 
+        className={`${t.visible ? 'animate-enter' : 'animate-leave'} 
         max-w-sm w-full bg-[#1ab45d] shadow-lg rounded-lg border-none pointer-events-auto flex `}
       >
         <div className="flex-1 w-0 p-4">
@@ -87,7 +87,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium text-white ">
-                Patient is successfully created!
+                Patient is successfully deleted!
               </p>
             </div>
           </div>
@@ -97,14 +97,14 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
             onClick={() => toast.dismiss(t.id)}
             className="w-full rounded-none rounded-r-lg p-4 flex items-center justify-center "
           >
-            <IoMdClose color='white'/>
+            <IoMdClose color='white' />
           </button>
         </div>
       </div>
     ))
     // custom toast end
   }
-  
+
 
   return (
     <>
@@ -133,7 +133,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                 ) : (
                   <p className='text-sm textSec'>Enter update patient information below</p>
                 )}
-                
+
               </div>
 
               {/* left container */}
@@ -183,12 +183,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                 <div className="flex flex-col gap-5">
                   <div className='flex flex-col'>
                     <label htmlFor="petName">Status</label>
-                    {/* <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} placeholder="Choose Status" required>
-                      <option {data.status !== ''? 'selected': ''} value="1">Allergy</option>
-                      <option value="2">Sick</option>
-                      <option value="3">Good</option>
-                    </select> */}
-                    <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px',  color: '#afa5b1' }}>
+                    <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
                       <option value="" disabled hidden>Please choose status</option>
                       <option value="1" selected={data.status === '1'}>Allergy</option>
                       <option value="2" selected={data.status === '2'}>Picky Eater</option>
@@ -198,17 +193,37 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
 
                   <div className='flex flex-col'>
                     <label htmlFor="breed">Breed</label>
-                    <input required type="text" value={data.breed} name='breed' className='formInput' placeholder='Please choose breed' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px',  color: '#afa5b1' }}/>
+                    <input required type="text" value={data.breed} name='breed' className='formInput' placeholder='Please choose breed' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
                   </div>
 
                   <div className='flex flex-col'>
                     <label htmlFor="dob">Date of Birth</label>
-                    <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px',  color: '#afa5b1' }}/>
+                    <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
                   </div>
 
                   <div className='flex flex-col'>
                     <label htmlFor="address">Address</label>
-                    <input required type="text" value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} />
+                    
+                    {paramsData.parent === '' ? (
+                      <input
+                        required
+                        type='text'
+                        value={data.address}
+                        name='address'
+                        className='formInput'
+                        onChange={(e) => onChangeData(e)}
+                      />
+                    ) : (
+                      <textarea
+                        required
+                        rows='3'
+                        cols='50'
+                        value={data.address}
+                        name='address'
+                        onChange={(e) => onChangeData(e)}
+                        style={{ color: '#4c4c4c', fontSize: '13px', lineHeight: '18px', padding: '3px 10px'}}
+                      />
+                    )}
                   </div>
 
                   <div className='flex flex-col'>
@@ -227,7 +242,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                   <button type='submit' className={`${paramsData.parent == '' ? 'saveBtn' : 'updateBtn'} `}>
                     {paramsData.parent == '' ? 'Save' : 'Update'}
                   </button>
-                  <button className="cancelBtn" onClick={() => setShowModalActive(false)} style={{border: '2px solid #c6cbd4'}}>
+                  <button className="cancelBtn" onClick={() => setShowModalActive(false)} style={{ border: '2px solid #c6cbd4' }}>
                     Cancel
                   </button>
                 </div>

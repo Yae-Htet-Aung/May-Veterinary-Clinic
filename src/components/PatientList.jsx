@@ -79,7 +79,7 @@ const PatientList = ({ active }) => {
 
   // option box
   const deleteAlert = () => {
-    // console.log('delete alert called')
+    console.log('delete alert called')
   }
   // option box end
 

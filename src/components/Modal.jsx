@@ -82,7 +82,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium text-white ">
-                Patient is successfully created!
+                Patient is successfully deleted!
               </p>
             </div>
           </div>
@@ -187,9 +187,9 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                     <option value="1" selected={data.status === '1'}>Allergy</option>
                     <option value="2" selected={data.status === '2'}>Picky Eater</option>
                   </select>
-
                 </div>
               </div>
+
 
               <div className="row-start-3 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>

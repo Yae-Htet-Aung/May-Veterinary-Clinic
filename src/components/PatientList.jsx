@@ -1,17 +1,19 @@
 import React, { useEffect, useRef } from 'react'
-import Search from '../assets/resources/search.png'
-import Add from '../assets/resources/add.png'
-import Edit from '../assets/resources/edit.png'
-import Delete from '../assets/resources/delete.png'
-import More from '../assets/resources/more.png'
 import styled from 'styled-components';
 import { useState } from 'react'
 import { Modal } from './Modal'
 import { Dropdown } from 'flowbite-react';
 import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
+import toast, { Toaster, resolveValue } from 'react-hot-toast';
+import Success from '../assets/resources/success.png'
+import { IoMdClose } from "react-icons/io";
+// pictures
 import Allergy from '../assets/resources/allergy.png'
+import Search from '../assets/resources/search.png'
+import Add from '../assets/resources/add.png'
 import PickyEater from '../assets/resources/picky eater.png'
+
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -42,14 +44,15 @@ const PatientList = ({ active }) => {
 
 
   // get data from modal
-  const createData = (e) =>
-    [
-      setData([e, ...data])
-    ]
+  const createData = (e) => {
+    setData([e, ...data])
+    noti('Patient is successfully created!')
+  }
 
   const deleteData = (id) => {
     const checkData = data.filter(item => item.id !== id);
     setData(checkData);
+    
   }
 
   const updateData = (id, newData) => {
@@ -57,6 +60,7 @@ const PatientList = ({ active }) => {
       item.id === id ? newData : item
     );
     setData(updatedData);
+    noti('Patient is successfully updated!')
   }
 
   active(showModal)
@@ -77,11 +81,42 @@ const PatientList = ({ active }) => {
   }
   // filter end
 
-  // option box
-  const deleteAlert = () => {
-    console.log('delete alert called')
+  // Notification
+  const noti = (msg) => {
+    // custom toast
+    toast.custom((t) => (
+      <div
+        className={`${t.visible ? 'animate-enter' : 'animate-leave'} 
+          max-w-sm w-full bg-[#1ab45d] shadow-lg rounded-lg border-none pointer-events-auto flex `}
+      >
+        <div className="flex-1 w-0 p-4">
+          <div className="flex items-center">
+            <div className="flex-shrink-0 pt-0.5">
+              <img
+                className="h-5 w-5 object-cover"
+                src={Success}
+                alt=""
+              />
+            </div>
+            <div className="ml-3 flex-1">
+              <p className="text-sm font-medium text-white ">
+                {msg}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="w-full rounded-none rounded-r-lg p-4 flex items-center justify-center "
+          >
+            <IoMdClose color='white' />
+          </button>
+        </div>
+      </div>
+    ))
   }
-  // option box end
+  // Notification end
 
   return (
     <Container>
@@ -189,13 +224,12 @@ const PatientList = ({ active }) => {
                       <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
                         renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
                         <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id), deleteAlert() }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
                       </Dropdown>
                     </td>
                   </tr>
                 ))
               }
-
             </tbody>
 
 

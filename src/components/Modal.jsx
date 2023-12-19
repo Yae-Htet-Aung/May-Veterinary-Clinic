@@ -16,6 +16,7 @@ const ModalWrapper = styled.div`
 export const Modal = ({ show, setShowModalActive, createData, updateData, paramsData }) => {
 
   const [data, setData] = useState({})
+  // const [message, setMessage ] = useState('')
 
   const onChangeData = (e) => {
     setData({
@@ -56,15 +57,16 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
   );
 
   const handleSave = () => {
-    createData(data), setShowModalActive(false), notify()
+    createData(data), setShowModalActive(false)
   }
 
   const handleUpdate = () => {
-    updateData(data.id, data), setShowModalActive(false), notify()
+    updateData(data.id, data), setShowModalActive(false)
   }
 
-  // toast
-  const notify = () => {
+  // Notification
+
+  const noti = (msg) => {
     // custom toast
     toast.custom((t) => (
       <div
@@ -82,7 +84,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium text-white ">
-                Patient is successfully deleted!
+                {msg}
               </p>
             </div>
           </div>
@@ -97,8 +99,8 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
         </div>
       </div>
     ))
-    // custom toast end
   }
+  // Notification end
 
 
   return (
@@ -212,7 +214,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                   {paramsData.parent == '' ? (
                     <input required type="text" value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} />
                   ) : (
-                    <textarea required type="text" rows='3' value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} style={{ height: '81px'}}/>
+                    <textarea required type="text" rows='3' value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} style={{ height: '81px' }} />
                   )}
                 </div>
               </div>

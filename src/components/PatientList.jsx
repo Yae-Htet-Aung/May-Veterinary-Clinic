@@ -10,9 +10,9 @@ import { Modal } from './Modal'
 import { Dropdown } from 'flowbite-react';
 import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
-import toast from 'react-hot-toast'
-
-
+import Allergy from '../assets/resources/allergy.png'
+import PickyEater from '../assets/resources/picky eater.png'
+import SweetAlert from 'sweetalert2';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -30,42 +30,38 @@ const button = styled.button`
 `;
 
 const PatientList = ({ active }) => {
-  
 
   const [showModal, setShowModal] = useState(false);
-  // const [data, setData] = useState([
-  //   { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '23.3.2000', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
-  //   { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '3.3.2001', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
-  //   { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2.3.2002', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
-  // ])
-  const [list, setList ] = useState(data)
-  const data = [
-    { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '23.3.2000', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '3.3.2001', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2.3.2002', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
-  ]
+  const [data, setData] = useState([
+    { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
+  ])
+  const [paramsData, setParamsData] = useState({})
 
-  const [updatedData, setUpdatedData ] = useState([])
-  // console.log('before clk >> ', showModal)
+  const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
+
 
   // get data from modal
-  const modelData = (e) => 
-  [
-    setData([e, ...data])
-  ]
-  // {
-  //   setData({
-  //     ...data,
-  //     [e.name]: e.value
-  //   });
-  // }
+  const createData = (e) =>
+    [
+      setData([e, ...data])
+    ]
 
-  const openModal = () => {
-    // console.log('openModal called')
-    setShowModal(true)
-  };
+  const deleteData = (id) => {
+    const checkData = data.filter(item => item.id !== id);
+    setData(checkData);
+  }
+
+  const updateData = (id, newData) => {
+    const updatedData = data.map(item =>
+      item.id === id ? newData : item
+    );
+    setData(updatedData);
+  }
+
   active(showModal)
-  // console.log('transfer called', showModal)
+
 
   // filter
   const statusBtn = useRef(null)
@@ -83,36 +79,15 @@ const PatientList = ({ active }) => {
   // filter end
 
   // option box
-  // const deleteData = (id) => {
-  //   console.log('id is >> ', id)
-  //   // delete data[id];
-  //   array.splice(1, 1);
-  //   // setData(data)
-  //   console.log('data: deleteDat block >> ', data)
-  // }
-
-  const deleteData = (id) => {
-    console.log(data[id])
-    const newData = data.filter(data => data.id !== id)
-    setList(newData)
-    
-    newData=console.log('data after rm >> ', data)
-    // setData(newData)
-
-    notify()
-
-    // console.log('updatedData', updatedData)
-    // setData(updatedData);
-    // console.log(`Object with id '${idToDelete}' deleted successfully.`);
-  };
-  // option box end
-
-  // notification
-  const notify = () => {
-    toast.success('successfully deleted!')
+  const deleteAlert = () => {
+    // console.log('delete alert called')
+    SweetAlert.fire({
+      title: 'Confirmation',
+      text: 'Your message goes here',
+      icon: 'warning', // Can be 'success', 'error', 'warning', 'info', etc.
+    });
   }
-  // notification end
-
+  // option box end
 
   return (
     <Container>
@@ -162,7 +137,7 @@ const PatientList = ({ active }) => {
 
           {/* right container */}
           <div className="md:flex md:flex-col gap-5 justify-center md:justify-end md:items-center shrink-0 content-start md:content-end md:h-full">
-            <div className="blueBtn mb-5 md:mb-0 flex items-center justify-center gap-2 self-center" onClick={openModal}>
+            <div className="blueBtn mb-5 md:mb-0 flex items-center justify-center gap-2 self-center" onClick={() => { setParamsData({ id: generateId, name: '', status: '', parent: '', breed: '', gender: '', dob: '', phone: '', address: '', township: '', city: '' }), setShowModal(true) }}>
               <img src={Add} alt="" className='w-[10px] h-[10px]' />
               Add new patient
             </div>
@@ -179,7 +154,7 @@ const PatientList = ({ active }) => {
 
         {/* data table */}
         <div className={`py-5 w-full overflow-x-scroll ${showModal ? 'opacity-50' : ''}`}>
-          <table className='w-[1250px] lg:w-full' >
+          <table className='min-w-[1250px] lg:w-full' >
             <thead>
               <tr align='left' className='h-[40px] title border-2 border-y-[#44444480]'>
                 <th className='w-[30px] md:min-w-[2%]  py-[9px]'><input type="checkbox" className="w-[30px]" /></th>
@@ -203,18 +178,24 @@ const PatientList = ({ active }) => {
                     <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
                     <td>{d.id}</td>
                     <td>{d.name}</td>
-                    <td>{d.status}</td>
+                    <td>
+                      {d.status === '1' ? (
+                        <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
+                      ) : (
+                        <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
+                      )}
+                    </td>
                     <td>{d.parent}</td>
                     <td>{d.breed}</td>
                     <td>{d.gender}</td>
-                    <td>{d.dob}</td>
+                    <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
                     <td>{d.phone}</td>
                     <td>{d.address} {d.township} {d.city}</td>
                     <td className='min-w-[50px]'>
                       <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
                         renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems'><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id)}}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
+                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id), deleteAlert() }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
                       </Dropdown>
                     </td>
                   </tr>
@@ -230,7 +211,7 @@ const PatientList = ({ active }) => {
         {/* Add Modal */}
 
         <div className={showModal ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
-          <Modal show={showModal} setShowModalActive={setShowModal} setModel={e => { modelData(e) }} />
+          <Modal show={showModal} setShowModalActive={setShowModal} paramsData={paramsData} updateData={(i, e) => { updateData(i, e) }} createData={e => { createData(e) }} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 

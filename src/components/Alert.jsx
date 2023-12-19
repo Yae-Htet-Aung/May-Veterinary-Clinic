@@ -7,8 +7,8 @@ import Success from '../assets/resources/success.png'
 import { IoMdClose } from "react-icons/io";
 
 const ModalWrapper = styled.div`
-  width: 600px;
-  height: 500px;
+  width: 300px;
+  height: 200px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
@@ -18,7 +18,9 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
 `;
 
-export const Modal = ({ show, setShowModalActive, createData, updateData, paramsData }) => {
+export const Modal = ({ show, setShowModalActive }) => {
+
+  // console.log('id >>>> ',generateUniqueId())
 
   const [data, setData] = useState({})
 

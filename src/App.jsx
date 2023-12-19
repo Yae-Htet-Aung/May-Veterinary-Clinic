@@ -14,10 +14,6 @@ function App() {
 
   return (
     <div>
-      {/* {console.log('parent >>>>', modelActive)} */}
-
-      <Navigation active={active} />
-      <PatientList active={active} />
       <Toaster
         position="bottom-left"
         reverseOrder={false}
@@ -29,7 +25,7 @@ function App() {
           className: '',
           duration: 5000,
           style: {
-            background: '#363636',
+            background: 'green',
             color: '#fff',
           },
 
@@ -37,12 +33,15 @@ function App() {
           success: {
             duration: 3000,
             theme: {
-              primary: 'green',
-              secondary: 'black',
+              primary: 'white',
+              secondary: 'white',
             },
           },
         }}
       />
+
+      <Navigation active={active} />
+      <PatientList active={active} />
 
     </div>
   )

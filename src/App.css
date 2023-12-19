@@ -64,8 +64,17 @@
 }
 
 .saveBtn {
-  background-color: #54bab9;
   color: white;
+  background-color: #54bab9 !important;
+  width: 120px;
+  border-radius: 3px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.updateBtn {
+  /* color: black; */
+  background-color: #edc339 !important;
   width: 120px;
   border-radius: 3px;
   line-height: 30px;
@@ -76,7 +85,6 @@
   background-color: #fff;
   color: black;
   width: 120px;
-  border: 2px solid #4c4c4c;
   border-radius: 3px;
   line-height: 30px;
   text-align: center;
@@ -131,9 +139,9 @@ label {
 .filterBtn {
   display: none;
   padding: 3px;
-
 }
-.filterBtn >p {
+
+.filterBtn>p {
   padding: 0 10px;
   cursor: pointer;
   font-size: 13px;
@@ -169,20 +177,23 @@ label {
   --tw-ring-color: rgb(0 0 0 / 0.5) !important;
 }
 
-.dropdownOption  {
+.dropdownOption {
   outline: none;
   background-color: #f8f8ff;
 }
+
 .dropdownItems {
   display: flex;
   gap: 10px;
   height: 35px;
 
 }
-.dropdownItems > span {
+
+.dropdownItems>span {
   flex-basis: 70%;
   text-align: left;
 }
+
 .dropdownItems:hover {
   background-color: rgb(176, 233, 255);
   border-radius: 2px;

@@ -13,7 +13,7 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
 `;
 
-export const Modal = ({ show, setShowModalActive, createData, updateData, paramsData }) => {
+export const Modal = ({ show, setShowModal, createData, updateData, paramsData }) => {
 
   const [data, setData] = useState({})
   // const [message, setMessage ] = useState('')
@@ -30,18 +30,18 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
   const closeModal = e => {
     console.log("bg onclick called")
     if (modalRef.current === e.target) {
-      setShowModalActive(false);
+      setShowModal(false);
     }
   };
 
   const keyPress = useCallback(
     e => {
       if (e.key === 'Escape' && show) {
-        setShowModalActive(false);
+        setShowModal(false);
         console.log('I pressed');
       }
     },
-    [show, setShowModalActive]
+    [show, setShowModal]
   );
 
   useEffect(() => {
@@ -57,11 +57,11 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
   );
 
   const handleSave = () => {
-    createData(data), setShowModalActive(false)
+    createData(data), setShowModal(false)
   }
 
   const handleUpdate = () => {
-    updateData(data.id, data), setShowModalActive(false)
+    updateData(data.id, data), setShowModal(false)
   }
 
   // Notification
@@ -113,7 +113,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
               <span
                 className='cursor-pointer absolute top-5 right-5 w-[20px] h-[20px] p-0 z-10 leading-[20px] text-center'
                 aria-label='Close modal'
-                onClick={() => setShowModalActive(prev => !prev)}
+                onClick={() => setShowModal(prev => !prev)}
               >
                 <MdOutlineClose className='material-icons md-18 ' />
               </span>
@@ -233,7 +233,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
                   <button type='submit' className={`${paramsData.parent == '' ? 'saveBtn' : 'updateBtn'} `}>
                     {paramsData.parent == '' ? 'Save' : 'Update'}
                   </button>
-                  <button className="cancelBtn" onClick={() => setShowModalActive(false)} style={{ border: '2px solid #c6cbd4' }}>
+                  <button className="cancelBtn" onClick={() => setShowModal(false)} style={{ border: '2px solid #c6cbd4' }}>
                     Cancel
                   </button>
                 </div>

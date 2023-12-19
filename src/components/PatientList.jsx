@@ -239,7 +239,7 @@ const PatientList = ({ active }) => {
         {/* Add Modal */}
 
         <div className={showModal ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
-          <Modal show={showModal} setShowModalActive={setShowModal} paramsData={paramsData} updateData={(i, e) => { updateData(i, e) }} createData={e => { createData(e) }} />
+          <Modal show={showModal} setShowModal={setShowModal} paramsData={paramsData} updateData={(i, e) => { updateData(i, e) }} createData={e => { createData(e) }} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 

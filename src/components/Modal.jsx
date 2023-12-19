@@ -7,12 +7,7 @@ import Success from '../assets/resources/success.png'
 import { IoMdClose } from "react-icons/io";
 
 const ModalWrapper = styled.div`
-  width: 600px;
-  height: 500px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  color: #000;
-  
+  background: #fff;  
   position: relative;
   z-index: 10;
   border-radius: 10px;
@@ -111,8 +106,8 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
 
       {show ? (
         <div className=' relative bg-stone-300 flex justify-center items-center rounded-lg shadow-md' onClick={closeModal} ref={modalRef}>
-          <ModalWrapper className='p-5 '>
-            <form onSubmit={() => { paramsData.parent == '' ? handleSave() : handleUpdate() }} className='grid grid-cols-2 h-full relative z-10 content-start gap-5'>
+          <ModalWrapper className={`${paramsData.parent == '' ? 'w-[600px] h-[462px] ' : 'w-[600px] h-[510px]'} p-5 shadow-lg bg-white border-none `}>
+            <form onSubmit={() => { paramsData.parent == '' ? handleSave() : handleUpdate() }} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span
                 className='cursor-pointer absolute top-5 right-5 w-[20px] h-[20px] p-0 z-10 leading-[20px] text-center'
                 aria-label='Close modal'
@@ -122,7 +117,7 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
               </span>
 
               {/* title */}
-              <div className="col-start-1 col-span-2 text-center h-fit ">
+              <div className="row-start-1 row-span-1 col-start-1 col-span-2 text-center h-fit ">
                 {paramsData.parent == '' ? (
                   <p className="title">Add new patient</p>
                 ) : (
@@ -136,104 +131,98 @@ export const Modal = ({ show, setShowModalActive, createData, updateData, params
 
               </div>
 
-              {/* left container */}
-              <div className="mt-5 col-start-1 col-span-1 ">
-                <div className="flex flex-col gap-5">
-                  <div className='flex flex-col'>
-                    <label htmlFor="petName">Pet Name</label>
-                    <input required type="text" value={data.name} name="name" onChange={(e) => onChangeData(e)} className='formInput' />
-                  </div>
+              {/* left inputs */}
+              <div className="row-start-2 row-span-1 col-start-1 col-span-1">
+                <div className='flex flex-col'>
+                  <label htmlFor="petName">Pet Name</label>
+                  <input required type="text" value={data.name} name="name" onChange={(e) => onChangeData(e)} className='formInput' />
+                </div>
+              </div>
 
-                  <div className='flex flex-col'>
-                    <label htmlFor="pawrent">Pawrent</label>
-                    <input required type="text" value={data.parent} name='parent' onChange={(e) => onChangeData(e)} className='formInput' />
-                  </div>
 
-                  <div className='flex flex-col gap-[9px] '>
-                    <label htmlFor="genderBox">Gender</label>
-                    <div name="genderBox" className="flex gap-10">
-                      <div className="flex gap-2">
-                        <input required type="radio" id="male" name="gender" checked={data.gender === "Male"} value="Male" onChange={(e) => onChangeData(e)} defaultChecked={true} />
-                        <label htmlFor="male" className='labelTitle'>Male</label>
-                      </div>
+              <div className="row-start-3 row-span-1 col-start-1 col-span-1">
+                <div className='flex flex-col'>
+                  <label htmlFor="pawrent">Pawrent</label>
+                  <input required type="text" value={data.parent} name='parent' onChange={(e) => onChangeData(e)} className='formInput' />
+                </div>
+              </div>
 
-                      <div className="flex gap-2">
-                        <input required type="radio" id="female" name="gender" checked={data.gender === "Female"} value="Female" onChange={(e) => onChangeData(e)} />
-                        <label htmlFor="female" className='labelTitle'>Female</label>
-                      </div>
+              <div className="row-start-4 row-span-1 col-start-1 col-span-1">
+                <div className='flex flex-col gap-[9px] '>
+                  <label htmlFor="genderBox">Gender</label>
+                  <div name="genderBox" className="flex gap-10">
+                    <div className="flex gap-2">
+                      <input required type="radio" id="male" name="gender" checked={data.gender === "Male"} value="Male" onChange={(e) => onChangeData(e)} defaultChecked={true} />
+                      <label htmlFor="male" className='labelTitle'>Male</label>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <input required type="radio" id="female" name="gender" checked={data.gender === "Female"} value="Female" onChange={(e) => onChangeData(e)} />
+                      <label htmlFor="female" className='labelTitle'>Female</label>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div className='flex flex-col'>
-                    <label htmlFor="phone">Contact Phone No.</label>
-                    <input required type="text" value={data.phone} name='phone' className='formInput' onChange={(e) => onChangeData(e)} />
-                  </div>
+              <div className="row-start-5 row-span-1 col-start-1 col-span-1">
+                <div className='flex flex-col'>
+                  <label htmlFor="phone">Contact Phone No.</label>
+                  <input required type="text" value={data.phone} name='phone' className='formInput' onChange={(e) => onChangeData(e)} />
+                </div>
+              </div>
 
-                  <div className='flex flex-col'>
-                    <label htmlFor="city">City</label>
-                    <input required type="text" value={data.city} name='city' className='formInput' onChange={(e) => onChangeData(e)} />
-                  </div>
+              <div className="row-start-6 row-span-1 col-start-1 col-span-1">
+                <div className='flex flex-col'>
+                  <label htmlFor="city">City</label>
+                  <input required type="text" value={data.city} name='city' className='formInput' onChange={(e) => onChangeData(e)} />
+                </div>
+              </div>
 
+              {/* right inputs */}
+              <div className="row-start-2 row-span-1 col-start-2 col-span-1 ">
+                <div className='flex flex-col'>
+                  <label htmlFor="petName">Status</label>
+                  <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
+                    <option value="" disabled hidden>Please choose status</option>
+                    <option value="1" selected={data.status === '1'}>Allergy</option>
+                    <option value="2" selected={data.status === '2'}>Picky Eater</option>
+                  </select>
                 </div>
               </div>
 
 
-              {/* right container */}
-              <div className="mt-5 col-start-2 col-span-1 ">
-                <div className="flex flex-col gap-5">
-                  <div className='flex flex-col'>
-                    <label htmlFor="petName">Status</label>
-                    <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
-                      <option value="" disabled hidden>Please choose status</option>
-                      <option value="1" selected={data.status === '1'}>Allergy</option>
-                      <option value="2" selected={data.status === '2'}>Picky Eater</option>
-                    </select>
-
-                  </div>
-
-                  <div className='flex flex-col'>
-                    <label htmlFor="breed">Breed</label>
-                    <input required type="text" value={data.breed} name='breed' className='formInput' placeholder='Please choose breed' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
-                  </div>
-
-                  <div className='flex flex-col'>
-                    <label htmlFor="dob">Date of Birth</label>
-                    <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
-                  </div>
-
-                  <div className='flex flex-col'>
-                    <label htmlFor="address">Address</label>
-                    
-                    {paramsData.parent === '' ? (
-                      <input
-                        required
-                        type='text'
-                        value={data.address}
-                        name='address'
-                        className='formInput'
-                        onChange={(e) => onChangeData(e)}
-                      />
-                    ) : (
-                      <textarea
-                        required
-                        rows='3'
-                        cols='50'
-                        value={data.address}
-                        name='address'
-                        onChange={(e) => onChangeData(e)}
-                        style={{ color: '#4c4c4c', fontSize: '13px', lineHeight: '18px', padding: '3px 10px'}}
-                      />
-                    )}
-                  </div>
-
-                  <div className='flex flex-col'>
-                    <label htmlFor="township">Township</label>
-                    <input required type="text" value={data.township} name='township' className='formInput' placeholder='please choose township' onChange={(e) => onChangeData(e)} />
-                  </div>
-
+              <div className="row-start-3 row-span-1 col-start-2 col-span-1 ">
+                <div className='flex flex-col'>
+                  <label htmlFor="breed">Breed</label>
+                  <input required type="text" value={data.breed} name='breed' className='formInput' placeholder='Please choose breed' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
                 </div>
               </div>
 
+              <div className="row-start-4 row-span-1 col-start-2 col-span-1 ">
+                <div className='flex flex-col'>
+                  <label htmlFor="dob">Date of Birth</label>
+                  <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
+                </div>
+              </div>
+
+              <div className="row-start-5 row-span-1 col-start-2 col-span-1 ">
+                <div className='flex flex-col'>
+                  <label htmlFor="address">Address</label>
+
+                  {paramsData.parent == '' ? (
+                    <input required type="text" value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} />
+                  ) : (
+                    <textarea required type="text" rows='3' value={data.address} name='address' className='formInput' onChange={(e) => onChangeData(e)} style={{ height: '81px'}}/>
+                  )}
+                </div>
+              </div>
+
+              <div className="row-start-6 row-span-1 col-start-2 col-span-1 ">
+                <div className='flex flex-col'>
+                  <label htmlFor="township">Township</label>
+                  <input required type="text" value={data.township} name='township' className='formInput' placeholder='please choose township' onChange={(e) => onChangeData(e)} />
+                </div>
+              </div>
 
               {/* buttons */}
               <div className="col-start-1 col-span-2  ">

@@ -90,6 +90,15 @@
   text-align: center;
 }
 
+.deleteBtn {
+  background-color: red;
+  color: white;
+  width: 120px;
+  border-radius: 3px;
+  line-height: 30px;
+  text-align: center;
+}
+
 .outlineBtnSec {
   background-color: #fff;
   color: #54bab9;

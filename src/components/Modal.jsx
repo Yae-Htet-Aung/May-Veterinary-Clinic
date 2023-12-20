@@ -28,7 +28,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
   const modalRef = useRef();
 
   const closeModal = e => {
-    console.log("bg onclick called")
+    console.log("closeModal called")
     if (modalRef.current === e.target) {
       setShowModal(false);
     }
@@ -38,7 +38,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
     e => {
       if (e.key === 'Escape' && show) {
         setShowModal(false);
-        console.log('I pressed');
+        console.log('Escape pressed');
       }
     },
     [show, setShowModal]
@@ -229,7 +229,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
               {/* buttons */}
               <div className="col-start-1 col-span-2  ">
                 <div className="flex w-full gap-5 justify-center ">
-                  {console.log(paramsData.parent)}
+                  {/* {console.log(paramsData.parent)} */}
                   <button type='submit' className={`${paramsData.parent == '' ? 'saveBtn' : 'updateBtn'} `}>
                     {paramsData.parent == '' ? 'Save' : 'Update'}
                   </button>

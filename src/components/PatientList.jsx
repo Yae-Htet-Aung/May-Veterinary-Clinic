@@ -13,6 +13,7 @@ import Allergy from '../assets/resources/allergy.png'
 import Search from '../assets/resources/search.png'
 import Add from '../assets/resources/add.png'
 import PickyEater from '../assets/resources/picky eater.png'
+import { AlertModal } from './Alert';
 
 
 const Container = styled.div`
@@ -31,14 +32,18 @@ const button = styled.button`
 `;
 
 const PatientList = ({ active }) => {
-
+  console.log('acitve @ patient list >> ', active)
   const [showModal, setShowModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
   const [data, setData] = useState([
     { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
   ])
   const [paramsData, setParamsData] = useState({})
+  // const [confirm, setConfirm] = useState(false)
+  const [idToDel, setIdToDel] = useState('')
 
   const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
 
@@ -49,11 +54,16 @@ const PatientList = ({ active }) => {
     noti('Patient is successfully created!')
   }
 
-  const deleteData = (id) => {
-    const checkData = data.filter(item => item.id !== id);
-    setData(checkData);
-    
+  const deleteBtn = (id) => {
+    console.log('deleteBtn clicked')
+    setShowAlert(true)
+    setIdToDel(id)
   }
+
+  // if (confirm == true) {
+  //   const checkData = data.filter(item => item.id !== id);
+  //   setData(checkData);
+  // }
 
   const updateData = (id, newData) => {
     const updatedData = data.map(item =>
@@ -224,7 +234,7 @@ const PatientList = ({ active }) => {
                       <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
                         renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
                         <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteData(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteBtn(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
                       </Dropdown>
                     </td>
                   </tr>
@@ -232,17 +242,20 @@ const PatientList = ({ active }) => {
               }
             </tbody>
 
-
           </table>
         </div>
 
-        {/* Add Modal */}
-
+        {/* Create || Update Modal */}
         <div className={showModal ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
           <Modal show={showModal} setShowModal={setShowModal} paramsData={paramsData} updateData={(i, e) => { updateData(i, e) }} createData={e => { createData(e) }} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 
+        {/* Delete Modal */}
+        <div className={showAlert ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
+          <AlertModal active={active} noti={noti} idToDel={idToDel} showAlert={showAlert} setShowAlert={setShowAlert} data={data} setData={setData} />
+          {/* {console.log('*** >>> ', typeof(showModal))} */}
+        </div>
 
       </div>
     </Container>

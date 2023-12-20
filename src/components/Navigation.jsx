@@ -4,9 +4,9 @@ import Profile from '../assets/resources/profile.png'
 import Bell from '../assets/resources/bell.png'
 
 const Navigation = ({active}) => {
-  // console.log('active? in navi >> ', active)  className={showModal ? 'opacity-100 ' : ''}
+  console.log('active? in navi >> ', active)  
   return (
-    <div className={`flex items-center justify-between w-full h-[82px] px-9 py-3 bg-[#54bab9] ${active? 'opacity-90 ' : ''} `}>
+    <div className={`flex items-center justify-between w-full h-[82px] px-9 py-3 bg-[#54bab9] ${active? ' ' : 'opacity-70'} `}>
       <div>
         <img src={`${Logo}`} alt="" className='w-[50px] h-[60px]' />
       </div>

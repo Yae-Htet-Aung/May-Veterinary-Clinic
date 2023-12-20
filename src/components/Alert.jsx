@@ -31,9 +31,10 @@ export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, dat
 
   const closeModal = e => {
     console.log("closeModal called")
-    if (modalRef.current === e.target) {
-      setShowAlert(false);
-    }
+    // if (modalRef.current === e.target) {
+    //   setShowAlert(false);
+    // }
+    setShowAlert(false);
   };
 
   const keyPress = useCallback(
@@ -60,7 +61,7 @@ export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, dat
     <>
 
       {showAlert ? (
-        <div className=' relative flex justify-center items-center ' onClick={closeModal} ref={modalRef}>
+        <div className=' relative flex justify-center items-center ' ref={modalRef}>
           <ModalWrapper className={`w-[390px] h-[150px] p-5 shadow-lg border-none`}>
             <form onSubmit={(e) => handleDelete(e)} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span

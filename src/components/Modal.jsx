@@ -29,15 +29,13 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
 
   const closeModal = e => {
     console.log("closeModal called")
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    }
+    setShowModal(false);
   };
 
   const keyPress = useCallback(
     e => {
       if (e.key === 'Escape' && show) {
-        setShowModal(false);
+        closeModal();
         console.log('Escape pressed');
       }
     },
@@ -57,11 +55,11 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
   );
 
   const handleSave = () => {
-    createData(data), setShowModal(false)
+    createData(data), closeModal()
   }
 
   const handleUpdate = () => {
-    updateData(data.id, data), setShowModal(false)
+    updateData(data.id, data), closeModal()
   }
 
   // Notification
@@ -107,7 +105,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
     <>
 
       {show ? (
-        <div className=' relative flex justify-center items-center rounded-lg shadow-md' onClick={closeModal} ref={modalRef}>
+        <div className=' relative flex justify-center items-center rounded-lg shadow-md' ref={modalRef}>
           <ModalWrapper className={`${paramsData.parent == '' ? 'w-[600px] h-[462px] ' : 'w-[600px] h-[510px]'} p-5 shadow-lg bg-white border-none `}>
             <form onSubmit={() => { paramsData.parent == '' ? handleSave() : handleUpdate() }} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span
@@ -233,7 +231,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
                   <button type='submit' className={`${paramsData.parent == '' ? 'saveBtn' : 'updateBtn'} `}>
                     {paramsData.parent == '' ? 'Save' : 'Update'}
                   </button>
-                  <button className="cancelBtn" onClick={() => setShowModal(false)} style={{ border: '2px solid #c6cbd4' }}>
+                  <button className="cancelBtn" onClick={() => closeModal()} style={{ border: '2px solid #c6cbd4' }}>
                     Cancel
                   </button>
                 </div>

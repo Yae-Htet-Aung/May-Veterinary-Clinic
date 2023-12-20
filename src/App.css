@@ -88,15 +88,17 @@
   border-radius: 3px;
   line-height: 30px;
   text-align: center;
+  padding-top: 3px;
 }
 
 .deleteBtn {
-  background-color: red;
+  background-color: #cd211d;
   color: white;
   width: 120px;
   border-radius: 3px;
   line-height: 30px;
   text-align: center;
+  padding-top: 3px;
 }
 
 .outlineBtnSec {
@@ -122,6 +124,7 @@ textarea {
   padding-bottom: 10px;
   border-radius: 5px;
 }
+
 .formInput {
   color: #4c4c4c;
   border: 2px solid #54bab9;

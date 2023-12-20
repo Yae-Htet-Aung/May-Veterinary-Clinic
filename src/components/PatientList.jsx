@@ -20,16 +20,6 @@ const Container = styled.div`
   background-color: whitesmoke;
 `;
 
-const button = styled.button`
-  min-width: 100px;
-  padding: 16px 32px;
-  border-radius: 4px;
-  border: none;
-  background: #141414;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-`;
 
 const PatientList = ({ active }) => {
   console.log('acitve @ patient list >> ', active)
@@ -246,13 +236,13 @@ const PatientList = ({ active }) => {
         </div>
 
         {/* Create || Update Modal */}
-        <div className={showModal ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
+        <div className={showModal ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2' : ''}>
           <Modal show={showModal} setShowModal={setShowModal} paramsData={paramsData} updateData={(i, e) => { updateData(i, e) }} createData={e => { createData(e) }} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 
         {/* Delete Modal */}
-        <div className={showAlert ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2 shadow-lg' : ''}>
+        <div className={showAlert ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2' : ''}>
           <AlertModal active={active} noti={noti} idToDel={idToDel} showAlert={showAlert} setShowAlert={setShowAlert} data={data} setData={setData} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>

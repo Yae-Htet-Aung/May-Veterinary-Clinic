@@ -107,7 +107,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
     <>
 
       {show ? (
-        <div className=' relative bg-stone-300 flex justify-center items-center rounded-lg shadow-md' onClick={closeModal} ref={modalRef}>
+        <div className=' relative flex justify-center items-center rounded-lg shadow-md' onClick={closeModal} ref={modalRef}>
           <ModalWrapper className={`${paramsData.parent == '' ? 'w-[600px] h-[462px] ' : 'w-[600px] h-[510px]'} p-5 shadow-lg bg-white border-none `}>
             <form onSubmit={() => { paramsData.parent == '' ? handleSave() : handleUpdate() }} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span

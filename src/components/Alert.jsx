@@ -60,8 +60,8 @@ export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, dat
     <>
 
       {showAlert ? (
-        <div className=' relative bg-stone-300 flex justify-center items-center rounded-lg shadow-md' onClick={closeModal} ref={modalRef}>
-          <ModalWrapper className={`w-[300px] h-[150px] p-5 shadow-lg bg-white border-none`}>
+        <div className=' relative flex justify-center items-center ' onClick={closeModal} ref={modalRef}>
+          <ModalWrapper className={`w-[390px] h-[150px] p-5 shadow-lg border-none`}>
             <form onSubmit={(e) => handleDelete(e)} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span
                 className='cursor-pointer absolute top-5 right-5 w-[20px] h-[20px] p-0 z-10 leading-[20px] text-center'
@@ -72,16 +72,16 @@ export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, dat
               </span>
 
               {/* title */}
-              <div className="row-start-1 row-span-1 col-start-1 col-span-2 text-center h-fit ">
+              <div className="row-start-1 row-span-1 col-start-1 col-span-2 h-fit ">
                 <p className="text-[#54bab9] font-semibold  ">Confirmation</p>
-                <p className='text-sm textSec'>Are you sure you want to delete this patient?</p>
+                <p className='text-sm pt-[20px] textSec'>Are you sure you want to delete this patient?</p>
 
               </div>
 
               {/* buttons */}
               <div className="col-start-1 col-span-2  ">
                 <div className="flex w-full gap-5 justify-center ">
-                  <button className="deleteBtn" style={{ border: '2px solid #c6cbd4' }}>
+                  <button className="deleteBtn" style={{  }}>
                     Delete
                   </button>
                   <button className="cancelBtn" onClick={() => setShowAlert(false)} style={{ border: '2px solid #c6cbd4' }}>

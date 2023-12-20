@@ -62,8 +62,6 @@ const PatientList = ({ show }) => {
     noti('Patient is successfully updated!')
   }
 
-
-
   // filter
   const statusBtn = useRef(null)
   const breedBtn = useRef(null)
@@ -116,9 +114,39 @@ const PatientList = ({ show }) => {
     setResultData(filteredData);
      breedBtn.current.classList.toggle('active')
   }
-
-  console.log('resultData >> ', resultData)
   // filter end
+
+  // ? search
+  
+  // Initialize an empty array to store unique keys
+  const allKeys = [];
+  
+  // Iterate through each object in the array
+  data.forEach(obj => {
+    // Iterate through the keys of each object
+    Object.keys(obj).forEach(key => {
+      // Check if the key is not already in the allKeys array
+      if (!allKeys.includes(key)) {
+        // Add the key to the allKeys array
+        allKeys.push(key);
+      }
+    });
+  });
+  
+  console.log('test result >>>> ', allKeys);
+  
+  const searchTerm = 'bin';
+
+  const searchResults = allKeys.map((key) => (
+    data.filter(item => {
+      // Customize the condition based on your search criteria
+      return item[key].toLowerCase().includes(searchTerm.toLowerCase());
+    })
+  ));
+  
+  console.log(searchResults);
+  
+  // ? search end
 
   // Notification
   const noti = (msg) => {
@@ -172,7 +200,7 @@ const PatientList = ({ show }) => {
             {/* search */}
             <div className="flex relative ">
               <input type="text" placeholder='Search table' className='outlineBtn text-[#4c4c4c] w-full px-3' />
-              <img src={Search} alt="" className='w-[15px] h-[15px] absolute top-[6px] right-[15px] ' />
+              <img src={Search} alt="" className='w-[15px] h-[15px] absolute top-[8px] right-[15px] ' />
             </div>
             {/* filter */}
             <div className="flex w-full gap-3 justify-between">

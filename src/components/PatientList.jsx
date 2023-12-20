@@ -26,17 +26,22 @@ const PatientList = ({ show }) => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [data, setData] = useState([
-    { id: 'B-0001', name: 'Milo', status: '1', parent: 'Phyo Min', breed: 'Rottweiler', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0002', name: 'Bella', status: '2', parent: 'Zayar', breed: 'Chiwhawha', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0003', name: 'Kitty', status: '1', parent: 'Yae', breed: 'Golden Reteriver', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' }
+    { id: 'B-0001', name: 'Milo Khris', status: '1', parent: 'Phyo Min', breed: 'Beagle', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0002', name: 'Bella Brown', status: '2', parent: 'Bo Bo', breed: 'Spaniel', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0003', name: 'Kitty Kim', status: '1', parent: 'Kon Kon', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0004', name: 'Sky', status: '1', parent: 'Twe Tar', breed: 'Beagle', gender: 'Female', dob: '2023-12-07', phone: '09 877 777 777', address: 'No.11 Hay Mar St, Kyaik Ka San Qtr', township: 'Thingangyun', city: 'Yangon' },
+    { id: 'B-0005', name: 'Calvin Kelvin', status: '2', parent: 'Zayar Naing', breed: 'Spaniel', gender: 'Male', dob: '2022-01-07', phone: '09 232 222 444', address: 'No. 90 BoAung St, Thiri Qtr', township: 'Tamwe', city: 'Yangon' },
+    { id: 'B-0006', name: 'Bingo', status: '2', parent: 'Yae Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 444', address: 'No. 32, 12 Ward', township: 'S. Okkalapa', city: 'Yangon' }
   ])
   const [paramsData, setParamsData] = useState({})
   // const [confirm, setConfirm] = useState(false)
   const [idToDel, setIdToDel] = useState('')
+  const [filteredData, setFilteredData] = useState([])
+  const [resultData, setResultData] = useState([])
 
   const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
 
-
+  
   // get data from modal
   const createData = (e) => {
     setData([e, ...data])
@@ -77,6 +82,47 @@ const PatientList = ({ show }) => {
     breedBtn.current.classList.toggle('active')
     // console.log(breedBtn.current.className)
   }
+
+  const statusAllClicked = () => {
+    setResultData(data)
+    statusBtn.current.classList.toggle('active')
+  }
+  const foodClicked = () => {
+    console.log('food clk')
+    const filteredData = data.filter(item => item.status == '2');
+    setResultData(filteredData);
+     statusBtn.current.classList.toggle('active')
+  }
+
+  const pickyClicked = () => {
+    console.log('picky clk')
+    const filteredData = data.filter(item => item.status == '1');
+    setResultData(filteredData);
+     statusBtn.current.classList.toggle('active')
+  }
+
+  const beagleClicked = () => {
+    console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'Beagle');
+    setResultData(filteredData);
+     breedBtn.current.classList.toggle('active')
+  }
+
+  const grClicked = () => {
+    console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'Golden Retriever');
+    setResultData(filteredData);
+     breedBtn.current.classList.toggle('active')
+  }
+  
+  const spanielClicked = () => {
+    console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'Spaniel');
+    setResultData(filteredData);
+     breedBtn.current.classList.toggle('active')
+  }
+
+  console.log('resultData >> ', resultData)
   // filter end
 
   // Notification
@@ -117,7 +163,6 @@ const PatientList = ({ show }) => {
   // Notification end
 
   // Opacity
-  console.log('showmodl, showalert >>> ', showModal, showAlert)
   show(showModal, showAlert)
   // Opacity end
 
@@ -144,9 +189,9 @@ const PatientList = ({ show }) => {
                   </div>
                 </div>
                 <div ref={statusBtn} className="filterBtn">
-                  <p className='filterItems'>Good</p>
-                  <p className='filterItems'>Food Allergy</p>
-                  <p className='filterItems'>Sick</p>
+                  <p className='filterItems' onClick={statusAllClicked}>Status All</p>
+                  <p className='filterItems' onClick={foodClicked}>Allergy</p>
+                  <p className='filterItems'onClick={pickyClicked}>Picky Eater</p>
                 </div>
               </div>
 
@@ -158,9 +203,9 @@ const PatientList = ({ show }) => {
                   </div>
                 </div>
                 <div ref={breedBtn} className="filterBtn">
-                  <p className='filterItems'>Beagle</p>
-                  <p className='filterItems'>Golden Retriever</p>
-                  <p className='filterItems'>Spaniel</p>
+                  <p className='filterItems' onClick={beagleClicked}>Beagle</p>
+                  <p className='filterItems' onClick={grClicked}>Golden Retriever</p>
+                  <p className='filterItems' onClick={spanielClicked}>Spaniel</p>
                 </div>
               </div>
 
@@ -204,17 +249,50 @@ const PatientList = ({ show }) => {
             </thead>
 
             <tbody>
-              {
+              { 
+              resultData.length == 0 ? (
                 data.map((d, i) => (
-                  <tr key={i} className='h-[40px] border border-b-[#44444480]'>
+                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == ''? 'none': ''} `} >
+                      <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
+                      <td>{d.id}</td>
+                      <td>{d.name}</td>
+                      <td>
+                        {d.status === '1' ? (
+                          <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
+                        ) : (
+                          <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
+                        )}
+                      </td>
+                      <td>{d.parent}</td>
+                      <td>{d.breed}</td>
+                      <td>{d.gender}</td>
+                      <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
+                      <td>{d.phone}</td>
+                      <td>{d.address} {d.township} {d.city}</td>
+                      <td className='min-w-[50px]'>
+                        <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
+                          renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
+                          <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
+                          <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteBtn(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        </Dropdown>
+                      </td>
+                    </tr>
+                  )) 
+              ):(
+                
+                resultData.map((d, i) => (
+                  
+                  
+
+                  <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == ''? 'none': ''} `} >
                     <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
                     <td>{d.id}</td>
                     <td>{d.name}</td>
                     <td>
                       {d.status === '1' ? (
-                        <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
-                      ) : (
                         <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
+                      ) : (
+                        <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
                       )}
                     </td>
                     <td>{d.parent}</td>
@@ -231,9 +309,14 @@ const PatientList = ({ show }) => {
                       </Dropdown>
                     </td>
                   </tr>
-                ))
+
+                  
+                )) 
+              )
+                                 
               }
             </tbody>
+
 
           </table>
         </div>

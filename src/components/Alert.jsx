@@ -17,7 +17,6 @@ export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, dat
   console.log('id to del >> ', idToDel)
   console.log('data (alert modal) >> ', data)
   
-  active(true)
   const handleDelete = (e) => {
     const checkData = data.filter(item => item.id !== idToDel);
     console.log('checkData >> ', checkData)

@@ -6,14 +6,16 @@ import PatientList from './components/PatientList'
 import React, { useState } from 'react';
 
 function App() {
-  const [modelActive, setModelActive] = React.useState(false);
+  const [ showModal, setShowModal ] = useState(false)
+  const [ showAlert, setShowAlert ] = useState(false)
 
-  const active = (active) => {
-    setModelActive(active)
+  const show = (showModal, showAlert ) =>{
+    setShowModal(showModal)
+    setShowAlert(showAlert)
   }
 
   return (
-    <div>
+    <div className='overflow-hidden'>
       <Toaster
         position="bottom-left"
         reverseOrder={false}
@@ -40,8 +42,8 @@ function App() {
         }}
       />
 
-      <Navigation active={active} />
-      <PatientList active={active} />
+      <Navigation showModal={showModal} showAlert={showAlert} />
+      <PatientList show={show} />
 
     </div>
   )

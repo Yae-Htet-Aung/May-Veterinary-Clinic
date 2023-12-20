@@ -21,8 +21,7 @@ const Container = styled.div`
 `;
 
 
-const PatientList = ({ active }) => {
-  console.log('acitve @ patient list >> ', active)
+const PatientList = ({ show }) => {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -63,7 +62,6 @@ const PatientList = ({ active }) => {
     noti('Patient is successfully updated!')
   }
 
-  active(showModal)
 
 
   // filter
@@ -118,11 +116,16 @@ const PatientList = ({ active }) => {
   }
   // Notification end
 
+  // Opacity
+  console.log('showmodl, showalert >>> ', showModal, showAlert)
+  show(showModal, showAlert)
+  // Opacity end
+
   return (
     <Container>
       <div className='relative w-[100vw] h-[100vh] mx-auto'>
         {/* upper container */}
-        <div className={`flex flex-col md:flex-row p-5 justify-between w-full md:h-[185px] h-[300px] ${showModal ? 'opacity-50' : ''}`}>
+        <div className={`flex flex-col md:flex-row p-5 justify-between w-full md:h-[185px] h-[300px] ${showModal || showAlert ? 'opacity-50' : ''}`}>
           {/* left container */}
           <div className="flex flex-col gap-5 justify-end shrink-0 w-full md:w-[300px] md:h-full">
             <p className='text-[22px] title'>Patient List</p>
@@ -243,7 +246,7 @@ const PatientList = ({ active }) => {
 
         {/* Delete Modal */}
         <div className={showAlert ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2' : ''}>
-          <AlertModal active={active} noti={noti} idToDel={idToDel} showAlert={showAlert} setShowAlert={setShowAlert} data={data} setData={setData} />
+          <AlertModal noti={noti} idToDel={idToDel} showAlert={showAlert} setShowAlert={setShowAlert} data={data} setData={setData} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 

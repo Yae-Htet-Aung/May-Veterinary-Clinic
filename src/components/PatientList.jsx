@@ -54,11 +54,6 @@ const PatientList = ({ show }) => {
     setIdToDel(id)
   }
 
-  // if (confirm == true) {
-  //   const checkData = data.filter(item => item.id !== id);
-  //   setData(checkData);
-  // }
-
   const updateData = (id, newData) => {
     const updatedData = data.map(item =>
       item.id === id ? newData : item

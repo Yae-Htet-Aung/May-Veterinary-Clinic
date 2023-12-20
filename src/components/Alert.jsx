@@ -13,9 +13,9 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
 `;
 
-export const AlertModal = ({ active, noti, idToDel, showAlert, setShowAlert, data, setData }) => {
-  console.log('id to del >> ', idToDel)
-  console.log('data (alert modal) >> ', data)
+export const AlertModal = ({ noti, idToDel, showAlert, setShowAlert, data, setData }) => {
+  // console.log('id to del >> ', idToDel)
+  // console.log('data (alert modal) >> ', data)
   
   const handleDelete = (e) => {
     const checkData = data.filter(item => item.id !== idToDel);

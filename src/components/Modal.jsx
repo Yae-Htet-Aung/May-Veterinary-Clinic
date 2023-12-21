@@ -142,7 +142,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
 
               <div className="row-start-3 row-span-1 col-start-1 col-span-1">
                 <div className='flex flex-col'>
-                  <label htmlFor="pawrent">Pawrent</label>
+                  <label htmlFor="pawrent">Parent</label>
                   <input required type="text" value={data.parent} name='parent' onChange={(e) => onChangeData(e)} className='formInput' />
                 </div>
               </div>
@@ -152,12 +152,12 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
                   <label htmlFor="genderBox">Gender</label>
                   <div name="genderBox" className="flex gap-10">
                     <div className="flex gap-2">
-                      <input required type="radio" id="male" name="gender" checked={data.gender === "Male"} value="Male" onChange={(e) => onChangeData(e)} defaultChecked={true} />
+                      <input required type="radio" id="male" name="gender" checked={data.gender === "male"} value="male" onChange={(e) => onChangeData(e)} defaultChecked={true} />
                       <label htmlFor="male" className='labelTitle'>Male</label>
                     </div>
 
                     <div className="flex gap-2">
-                      <input required type="radio" id="female" name="gender" checked={data.gender === "Female"} value="Female" onChange={(e) => onChangeData(e)} />
+                      <input required type="radio" id="female" name="gender" checked={data.gender === "female"} value="female" onChange={(e) => onChangeData(e)} />
                       <label htmlFor="female" className='labelTitle'>Female</label>
                     </div>
                   </div>
@@ -181,20 +181,24 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
               {/* right inputs */}
               <div className="row-start-2 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>
-                  <label htmlFor="petName">Status</label>
+                  <label htmlFor="status">Status</label>
                   <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
                     <option value="" disabled hidden>Please choose status</option>
-                    <option value="1" selected={data.status === '1'}>Allergy</option>
-                    <option value="2" selected={data.status === '2'}>Picky Eater</option>
+                    <option value="allergy" selected={data.status === 'allergy'}>Allergy</option>
+                    <option value="picky eater" selected={data.status === 'picky eater'}>Picky Eater</option>
                   </select>
                 </div>
               </div>
 
-
               <div className="row-start-3 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>
                   <label htmlFor="breed">Breed</label>
-                  <input required type="text" value={data.breed} name='breed' className='formInput' placeholder='Please choose breed' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
+                  <select value={data.breed} name="breed" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
+                    <option value="" disabled hidden>Please choose breed</option>
+                    <option value="beagle" selected={data.breed === 'beagle'}>Beagle</option>
+                    <option value="golden retriever" selected={data.breed === 'golden retriever'}>Golden Retriever</option>
+                    <option value="spaniel" selected={data.breed === 'spaniel'}>Spaniel</option>
+                  </select>
                 </div>
               </div>
 

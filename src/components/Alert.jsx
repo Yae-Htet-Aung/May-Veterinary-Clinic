@@ -64,7 +64,7 @@ export const AlertModal = ({ noti, idToDel, showAlert, setShowAlert, data, setDa
           <ModalWrapper className={`w-[390px] h-[150px] p-5 shadow-lg border-none`}>
             <form onSubmit={(e) => handleDelete(e)} className='grid grid-cols-2 grid-rows-7 h-full relative z-10 content-start gap-5'>
               <span
-                className='cursor-pointer absolute top-5 right-5 w-[20px] h-[20px] p-0 z-10 leading-[20px] text-center'
+                className='cursor-pointer absolute top-0 -right-[5px] w-[20px] h-[20px] p-0 z-10 leading-[20px] text-center'
                 aria-label='Close modal'
                 onClick={() => setShowAlert(false)}
               >

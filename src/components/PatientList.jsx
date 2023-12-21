@@ -13,34 +13,35 @@ import Allergy from '../assets/resources/allergy.png'
 import Search from '../assets/resources/search.png'
 import Add from '../assets/resources/add.png'
 import PickyEater from '../assets/resources/picky eater.png'
-import Down from '../assets/resources/green_down.png'
+import BlueDown from '../assets/resources/green_down.png'
+import BlackDown from '../assets/resources/black_down.png'
 import { AlertModal } from './Alert';
 
 
 const Container = styled.div`
   background-color: whitesmoke;
-  margin: 10px;
+  margin: 20px;
 `;
 
 
 const PatientList = ({ show }) => {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
+{/* beagle golden retriever spaniel */}
   const [data, setData] = useState([
-    { id: 'B-0001', name: 'Milo Khris', status: '1', parent: 'Phyo Min', breed: 'Beagle', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0002', name: 'Bella Brown', status: '2', parent: 'Bo Bo', breed: 'Spaniel', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0003', name: 'Kitty Kim', status: '1', parent: 'Kon Kon', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' },
-    { id: 'B-0004', name: 'Sky', status: '1', parent: 'Twe Tar', breed: 'Beagle', gender: 'Female', dob: '2023-12-07', phone: '09 877 777 777', address: 'No.11 Hay Mar St, Kyaik Ka San Qtr', township: 'Thingangyun', city: 'Yangon' },
-    { id: 'B-0005', name: 'Calvin Kelvin', status: '2', parent: 'Zayar Naing', breed: 'Spaniel', gender: 'Male', dob: '2022-01-07', phone: '09 232 222 444', address: 'No. 90 BoAung St, Thiri Qtr', township: 'Tamwe', city: 'Yangon' },
-    { id: 'B-0006', name: 'Bingo', status: '2', parent: 'Yae Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 444', address: 'No. 32, 12 Ward', township: 'S. Okkalapa', city: 'Yangon' },
+    { id: 'B-0001', name: 'Milo Khris', status: 'picky eater', parent: 'Phyo Min', breed: 'spaniel', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0002', name: 'Bella Brown', status: 'allergy', parent: 'Bo Bo', breed: 'golden retriever', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0003', name: 'Kitty Kim', status: 'picky eater', parent: 'Kon Kon', breed: 'golden retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' },
+    { id: 'B-0004', name: 'Sky', status: 'picky eater', parent: 'Twe Tar', breed: 'spaniel', gender: 'Female', dob: '2023-12-07', phone: '09 877 777 777', address: 'No.11 Hay Mar St, Kyaik Ka San Qtr', township: 'Thingangyun', city: 'Yangon' },
+    { id: 'B-0005', name: 'Calvin Kelvin', status: 'allergy', parent: 'Zayar Naing', breed: 'beagle', gender: 'Male', dob: '2022-01-07', phone: '09 232 222 444', address: 'No. 90 BoAung St, Thiri Qtr', township: 'Tamwe', city: 'Yangon' },
+    { id: 'B-0006', name: 'Bingo', status: 'allergy', parent: 'Yae Yae', breed: 'golden retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 444', address: 'No. 32, 12 Ward', township: 'S. Okkalapa', city: 'Yangon' },
 
-    { id: 'B-0007', name: 'Mr. Smith', status: '2', parent: 'Taylor', breed: 'Beagle', gender: 'Male', dob: '2013-12-07', phone: '09 877 783 266', address: 'No.44, Kyee Pwa Yay Qtr', township: 'Thingangyun', city: 'Yangon' },
-    { id: 'B-0008', name: 'Noli', status: '2', parent: 'Ma Chit', breed: 'Spaniel', gender: 'Female', dob: '2020-01-07', phone: '09 232 234 332', address: 'No. 90 12 Qtr', township: 'S. Okkala', city: 'Yangon' },
-    { id: 'B-0009', name: 'Jennie Kim', status: '1', parent: 'G-Dragon', breed: 'Golden Retriever', gender: 'Female', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 53, Shin Saw Pu Qtr', township: 'Dagon', city: 'Yangon' },
-    { id: 'B-0010', name: 'Doraemon', status: '1', parent: 'Thant Zin', breed: 'Beagle', gender: 'Male', dob: '2020-12-07', phone: '09 877 121 111', address: 'No.11 Lover Qtr', township: 'Myay Ni Gone', city: 'Yangon' },
-    { id: 'B-0011', name: 'Kelvin Kate', status: '2', parent: 'Zayar Naing', breed: 'Spaniel', gender: 'Male', dob: '2000-01-07', phone: '09 232 111 111', address: 'No. 90 Zayar Qtr', township: 'Tamwe', city: 'Yangon' },
-    { id: 'B-0012', name: 'Honey', status: '2', parent: 'Mg Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 666', address: 'No. 32, 122 Ward', township: 'S. Tamwe', city: 'Yangon' }
+    { id: 'B-0007', name: 'Mr. Smith', status: 'allergy', parent: 'Taylor', breed: 'beagle', gender: 'Male', dob: '2013-12-07', phone: '09 877 783 266', address: 'No.44, Kyee Pwa Yay Qtr', township: 'Thingangyun', city: 'Yangon' },
+    { id: 'B-0008', name: 'Noli', status: 'allergy', parent: 'Ma Chit', breed: 'golden retriever', gender: 'Female', dob: '2020-01-07', phone: '09 232 234 332', address: 'No. 90 12 Qtr', township: 'S. Okkala', city: 'Yangon' },
+    { id: 'B-0009', name: 'Jennie Kim', status: 'picky eater', parent: 'G-Dragon', breed: 'spaniel', gender: 'Female', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 53, Shin Saw Pu Qtr', township: 'Dagon', city: 'Yangon' },
+    { id: 'B-0010', name: 'Doraemon', status: 'picky eater', parent: 'Thant Zin', breed: 'beagle', gender: 'Male', dob: '2020-12-07', phone: '09 877 121 111', address: 'No.11 Lover Qtr', township: 'Myay Ni Gone', city: 'Yangon' },
+    { id: 'B-0011', name: 'Kelvin Kate', status: 'allergy', parent: 'Zayar Naing', breed: 'golden retriever', gender: 'Male', dob: '2000-01-07', phone: '09 232 111 111', address: 'No. 90 Zayar Qtr', township: 'Tamwe', city: 'Yangon' },
+    { id: 'B-0012', name: 'Honey', status: 'allergy', parent: 'Mg Yae', breed: 'golden retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 666', address: 'No. 32, 122 Ward', township: 'S. Tamwe', city: 'Yangon' }
   ])
   const [paramsData, setParamsData] = useState({})
   const [idToDel, setIdToDel] = useState('')
@@ -53,6 +54,7 @@ const PatientList = ({ show }) => {
   const createData = (e) => {
     setData([e, ...data])
     noti('Patient is successfully created!')
+    setStatus('Status All')
   }
 
   const deleteBtn = (id) => {
@@ -88,7 +90,7 @@ const PatientList = ({ show }) => {
   const allergyClicked = () => {
     setStatus('Allergy')
     console.log('allergy clk')
-    const filteredData = data.filter(item => item.status == '2');
+    const filteredData = data.filter(item => item.status == 'allergy');
     setResultData(filteredData);
     statusBtn.current.classList.toggle('active')
   }
@@ -96,7 +98,7 @@ const PatientList = ({ show }) => {
   const pickyClicked = () => {
     setStatus('Picky Eater')
     console.log('picky clk')
-    const filteredData = data.filter(item => item.status == '1');
+    const filteredData = data.filter(item => item.status == 'picky eater');
     setResultData(filteredData);
     statusBtn.current.classList.toggle('active')
   }
@@ -108,7 +110,7 @@ const PatientList = ({ show }) => {
   const beagleClicked = () => {
     setBreed('Beagle')
     console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'Beagle');
+    const filteredData = data.filter(item => item.breed == 'beagle');
     setResultData(filteredData);
     breedBtn.current.classList.toggle('active')
   }
@@ -116,7 +118,7 @@ const PatientList = ({ show }) => {
   const grClicked = () => {
     setBreed('Golden Retriever')
     console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'Golden Retriever');
+    const filteredData = data.filter(item => item.breed == 'golden retriver');
     setResultData(filteredData);
     breedBtn.current.classList.toggle('active')
   }
@@ -124,7 +126,7 @@ const PatientList = ({ show }) => {
   const spanielClicked = () => {
     setBreed('Spaniel')
     console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'Spaniel');
+    const filteredData = data.filter(item => item.breed == 'spaniel');
     setResultData(filteredData);
     breedBtn.current.classList.toggle('active')
   }
@@ -178,6 +180,7 @@ const PatientList = ({ show }) => {
   });
 
   const handleSearch = () => {
+    console.log('keys >> ', allKeys)
     console.log('search term :', searchTerm)
     if (searchTerm == '') {
       setResultData(data)
@@ -195,7 +198,7 @@ const PatientList = ({ show }) => {
       console.log('searched data >>> ', resultData);
       setResultData(searchedData)
 
-      if (searchedData.length === 0) {
+      if (searchedData.length == 0) {
         noti('There is no such data. Showing all data instead!');
       } else {
         noti('Showing searched results.');
@@ -295,7 +298,7 @@ const PatientList = ({ show }) => {
                 <div onClick={statusBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
                   {Status == '' ? 'Status All' : `${Status}`}
                   <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
+                    <img src={BlackDown} alt="icon" />
                   </div>
                 </div>
                 <div ref={statusBtn} className="filterBtn">
@@ -309,7 +312,7 @@ const PatientList = ({ show }) => {
                 <div onClick={breedBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
                   {Breed == '' ? 'Breed All' : `${Breed}`}
                   <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
+                    <img src={BlackDown} alt="icon" />
                   </div>
                 </div>
                 <div ref={breedBtn} className="filterBtn">
@@ -334,7 +337,7 @@ const PatientList = ({ show }) => {
 
               <div ref={rppBtn} onClick={rppBtnClicked} id="rowsPerPage" className='rppBtn'>
                 {RPP == '' ? '10' : `${RPP}`}
-                <img src={Down} className='w-3 h-3 mt-[4px]' alt="icon" />
+                <img src={BlueDown} className='w-3 h-3 mt-[4px]' alt="icon" />
                 <div ref={rppList} className="rppList">
                   <p className='rppItems' onClick={rpp5}>5</p>
                   <p className='rppItems' onClick={rpp10}>10</p>
@@ -346,7 +349,7 @@ const PatientList = ({ show }) => {
         </div>
 
         {/* data table */}
-        <div className={`py-5 w-full overflow-x-scroll overflow-y-scroll ${showModal ? 'opacity-50' : ''}`}>
+        <div className={`pt-[10px] w-full overflow-auto ${showModal || showAlert ? 'opacity-50' : ''}`}>
           <table className='min-w-[1250px] h-fit lg:w-full mb-10' >
             <thead>
               <tr align='left' className='h-[40px] title border-2 border-y-[#44444480]'>
@@ -373,14 +376,18 @@ const PatientList = ({ show }) => {
                       <td>{d.id}</td>
                       <td>{d.name}</td>
                       <td>
-                        {d.status === '1' ? (
+                        {d.status === 'picky eater' ? (
                           <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
                         ) : (
                           <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
                         )}
                       </td>
                       <td>{d.parent}</td>
-                      <td>{d.breed}</td>
+                      <td>
+                        {d.breed === 'beagle' ? ( <span>Beagle</span> ) : ''}
+                        {d.breed === 'golden retriever' ? ( <span>Golden Retriever</span> ) : ''}
+                        {d.breed === 'spaniel' ? ( <span>Spaniel</span> ) : ''}
+                      </td>
                       <td>{d.gender}</td>
                       <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
                       <td>{d.phone}</td>
@@ -401,14 +408,18 @@ const PatientList = ({ show }) => {
                       <td>{d.id}</td>
                       <td>{d.name}</td>
                       <td>
-                        {d.status === '1' ? (
+                        {d.status === 'picky eater' ? (
                           <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
                         ) : (
                           <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
                         )}
                       </td>
                       <td>{d.parent}</td>
-                      <td>{d.breed}</td>
+                      <td>
+                        {d.breed === 'beagle' ? ( <span>Beagle</span> ) : ''}
+                        {d.breed === 'golden retriever' ? ( <span>Golden Retriever</span> ) : ''}
+                        {d.breed === 'spaniel' ? ( <span>Spaniel</span> ) : ''}
+                      </td>
                       <td>{d.gender}</td>
                       <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
                       <td>{d.phone}</td>

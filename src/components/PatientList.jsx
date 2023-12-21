@@ -63,7 +63,9 @@ const PatientList = ({ show }) => {
     noti('Patient is successfully updated!')
   }
 
-  // filter
+  // ? filter
+  const [Status, setStatus] = useState('')
+  const [Breed, setBreed] = useState('')
   const statusBtn = useRef(null)
   const breedBtn = useRef(null)
 
@@ -72,30 +74,33 @@ const PatientList = ({ show }) => {
     statusBtn.current.classList.toggle('active')
     // console.log(statusBtn.current.className)
   }
-  const breedBtnClick = () => {
-    breedBtn.current.classList.toggle('active')
-    // console.log(breedBtn.current.className)
-  }
-
   const statusAllClicked = () => {
+    setStatus('Status All')
     setResultData(data)
     statusBtn.current.classList.toggle('active')
   }
-  const foodClicked = () => {
-    console.log('food clk')
+  const allergyClicked = () => {
+    setStatus('Allergy')
+    console.log('allergy clk')
     const filteredData = data.filter(item => item.status == '2');
     setResultData(filteredData);
     statusBtn.current.classList.toggle('active')
   }
 
   const pickyClicked = () => {
+    setStatus('Picky Eater')
     console.log('picky clk')
     const filteredData = data.filter(item => item.status == '1');
     setResultData(filteredData);
     statusBtn.current.classList.toggle('active')
   }
-
+  
+  const breedBtnClick = () => {
+    breedBtn.current.classList.toggle('active')
+    // console.log(breedBtn.current.className)
+  }
   const beagleClicked = () => {
+    setBreed('Beagle')
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Beagle');
     setResultData(filteredData);
@@ -103,6 +108,7 @@ const PatientList = ({ show }) => {
   }
 
   const grClicked = () => {
+    setBreed('Golden Retriever')
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Golden Retriever');
     setResultData(filteredData);
@@ -110,11 +116,16 @@ const PatientList = ({ show }) => {
   }
 
   const spanielClicked = () => {
+    setBreed('Spaniel')
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Spaniel');
     setResultData(filteredData);
     breedBtn.current.classList.toggle('active')
   }
+  // filter end
+  
+  // ? Row per page
+  const [RPP, setRPP] = useState('')
   const rppBtn = useRef(null)
   const rppList = useRef(null)
 
@@ -125,14 +136,14 @@ const PatientList = ({ show }) => {
 
   const rpp5 = () => {
     // console.log('rpp5 called')
-    
+    setRPP('5')
   }
 
   const rpp10 = () => {
     // console.log('rpp10 called')
-
+    setRPP('10')
   }
-  // filter end
+  // Row per page end
 
   // ? search
   const [searchTerm, setSearchTerm] = useState('');
@@ -253,7 +264,7 @@ const PatientList = ({ show }) => {
         {/* upper container */}
         <div className={`flex flex-col md:flex-row p-5 justify-between w-full md:h-[185px] h-[300px] ${showModal || showAlert ? 'opacity-50' : ''}`}>
           {/* left container */}
-          <div className="flex flex-col gap-5 justify-end shrink-0 w-full md:w-[300px] md:h-full">
+          <div className="flex flex-col gap-5 justify-end shrink-0 w-full md:w-[350px] md:h-full">
             <p className='text-[22px] title'>Patient List</p>
             {/* search */}
             {/* todo */}
@@ -266,24 +277,24 @@ const PatientList = ({ show }) => {
               <img src={Search} onClick={() => handleSearch()} alt="" className='w-[15px] h-[15px] absolute top-[8px] right-[15px] ' />
             </div>
             {/* filter */}
-            <div className="flex w-full gap-3 justify-between">
-              <div className='relative flex w-1/2'>
+            <div className="flex flex-col md:flex-row w-full gap-3 justify-between">
+              <div className='relative flex md:w-1/2'>
                 <div onClick={statusBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
-                  Status All
+                  {Status == ''? 'Status All': `${Status}`}
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
                   </div>
                 </div>
                 <div ref={statusBtn} className="filterBtn">
                   <p className='filterItems' onClick={statusAllClicked}>Status All</p>
-                  <p className='filterItems' onClick={foodClicked}>Allergy</p>
+                  <p className='filterItems' onClick={allergyClicked}>Allergy</p>
                   <p className='filterItems' onClick={pickyClicked}>Picky Eater</p>
                 </div>
               </div>
 
-              <div className='relative flex w-1/2'>
+              <div className='relative flex md:w-1/2'>
                 <div onClick={breedBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
-                  Breed All
+                {Breed == ''? 'Breed All': `${Breed}`}
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
                   </div>
@@ -309,7 +320,7 @@ const PatientList = ({ show }) => {
               <p className='commonText'>Rows per page:</p>
 
               <div ref={rppBtn} onClick={rppBtnClicked} id="rowsPerPage" className='rppBtn'>
-                5
+              {RPP == ''? '10': `${RPP}`}
                 <img src={Down} className='w-3 h-3 mt-[4px]' alt="icon" />
                 <div ref={rppList} className="rppList">
                   <p className='rppItems' onClick={rpp5}>5</p>

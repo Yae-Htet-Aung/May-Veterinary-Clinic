@@ -182,7 +182,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
               <div className="row-start-2 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>
                   <label htmlFor="status">Status</label>
-                  <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
+                  <select value={data.status} name="status" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#2a2a2a' }}>
                     <option value="" disabled hidden>Please choose status</option>
                     <option value="allergy" selected={data.status === 'allergy'}>Allergy</option>
                     <option value="picky eater" selected={data.status === 'picky eater'}>Picky Eater</option>
@@ -193,7 +193,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
               <div className="row-start-3 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>
                   <label htmlFor="breed">Breed</label>
-                  <select value={data.breed} name="breed" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#afa5b1' }}>
+                  <select value={data.breed} name="breed" id="" onChange={(e) => onChangeData(e)} required className='formInput' style={{ padding: '3px 10px', backgroundColor: 'transparent', fontSize: '13px', color: '#2a2a2a' }}>
                     <option value="" disabled hidden>Please choose breed</option>
                     <option value="beagle" selected={data.breed === 'beagle'}>Beagle</option>
                     <option value="golden retriever" selected={data.breed === 'golden retriever'}>Golden Retriever</option>
@@ -205,7 +205,7 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
               <div className="row-start-4 row-span-1 col-start-2 col-span-1 ">
                 <div className='flex flex-col'>
                   <label htmlFor="dob">Date of Birth</label>
-                  <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#afa5b1' }} />
+                  <input required type="date" value={data.dob} name='dob' className='formInput' onChange={(e) => onChangeData(e)} style={{ padding: '3px 10px', fontSize: '13px', color: '#2a2a2a' }} />
                 </div>
               </div>
 

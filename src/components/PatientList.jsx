@@ -32,12 +32,17 @@ const PatientList = ({ show }) => {
     { id: 'B-0003', name: 'Kitty Kim', status: '1', parent: 'Kon Kon', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 32, Mahar Ban Lann, Ta Mar Di Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0004', name: 'Sky', status: '1', parent: 'Twe Tar', breed: 'Beagle', gender: 'Female', dob: '2023-12-07', phone: '09 877 777 777', address: 'No.11 Hay Mar St, Kyaik Ka San Qtr', township: 'Thingangyun', city: 'Yangon' },
     { id: 'B-0005', name: 'Calvin Kelvin', status: '2', parent: 'Zayar Naing', breed: 'Spaniel', gender: 'Male', dob: '2022-01-07', phone: '09 232 222 444', address: 'No. 90 BoAung St, Thiri Qtr', township: 'Tamwe', city: 'Yangon' },
-    { id: 'B-0006', name: 'Bingo', status: '2', parent: 'Yae Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 444', address: 'No. 32, 12 Ward', township: 'S. Okkalapa', city: 'Yangon' }
+    { id: 'B-0006', name: 'Bingo', status: '2', parent: 'Yae Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 444', address: 'No. 32, 12 Ward', township: 'S. Okkalapa', city: 'Yangon' },
+
+    { id: 'B-0007', name: 'Mr. Smith', status: '2', parent: 'Taylor', breed: 'Beagle', gender: 'Male', dob: '2013-12-07', phone: '09 877 783 266', address: 'No.44, Kyee Pwa Yay Qtr', township: 'Thingangyun', city: 'Yangon' },
+    { id: 'B-0008', name: 'Noli', status: '2', parent: 'Ma Chit', breed: 'Spaniel', gender: 'Female', dob: '2020-01-07', phone: '09 232 234 332', address: 'No. 90 12 Qtr', township: 'S. Okkala', city: 'Yangon' },
+    { id: 'B-0009', name: 'Jennie Kim', status: '1', parent: 'G-Dragon', breed: 'Golden Retriever', gender: 'Female', dob: '2021-02-06', phone: '09 877 121 345', address: 'No. 53, Shin Saw Pu Qtr', township: 'Dagon', city: 'Yangon' },
+    { id: 'B-0010', name: 'Doraemon', status: '1', parent: 'Thant Zin', breed: 'Beagle', gender: 'Male', dob: '2020-12-07', phone: '09 877 121 111', address: 'No.11 Lover Qtr', township: 'Myay Ni Gone', city: 'Yangon' },
+    { id: 'B-0011', name: 'Kelvin Kate', status: '2', parent: 'Zayar Naing', breed: 'Spaniel', gender: 'Male', dob: '2000-01-07', phone: '09 232 111 111', address: 'No. 90 Zayar Qtr', township: 'Tamwe', city: 'Yangon' },
+    { id: 'B-0012', name: 'Honey', status: '2', parent: 'Mg Yae', breed: 'Golden Retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 666', address: 'No. 32, 122 Ward', township: 'S. Tamwe', city: 'Yangon' }
   ])
   const [paramsData, setParamsData] = useState({})
-  // const [confirm, setConfirm] = useState(false)
   const [idToDel, setIdToDel] = useState('')
-  const [filteredData, setFilteredData] = useState([])
   const [resultData, setResultData] = useState([])
 
   const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
@@ -94,7 +99,7 @@ const PatientList = ({ show }) => {
     setResultData(filteredData);
     statusBtn.current.classList.toggle('active')
   }
-  
+
   const breedBtnClick = () => {
     breedBtn.current.classList.toggle('active')
     // console.log(breedBtn.current.className)
@@ -123,12 +128,11 @@ const PatientList = ({ show }) => {
     breedBtn.current.classList.toggle('active')
   }
   // filter end
-  
+
   // ? Row per page
   const [RPP, setRPP] = useState('')
   const rppBtn = useRef(null)
   const rppList = useRef(null)
-
 
   const rppBtnClicked = () => {
     rppList.current.classList.toggle('active')
@@ -136,12 +140,12 @@ const PatientList = ({ show }) => {
 
   const rpp5 = () => {
     // console.log('rpp5 called')
-    setRPP('5')
+    setRPP(5)
   }
 
   const rpp10 = () => {
     // console.log('rpp10 called')
-    setRPP('10')
+    setRPP(10)
   }
   // Row per page end
 
@@ -184,7 +188,7 @@ const PatientList = ({ show }) => {
       setSearchedData(searchResults);
       console.log('searched data >>> ', resultData);
       setResultData(searchedData)
-      
+
     }
   };
   const handleKeyPress = (e) => {
@@ -194,6 +198,9 @@ const PatientList = ({ show }) => {
   };
 
   useEffect(() => {
+    setRPP(10)
+    console.log("use effect called");
+
     // Initialize allKeys when data changes
     const newAllKeys = [];
     data.forEach((obj) => {
@@ -204,17 +211,18 @@ const PatientList = ({ show }) => {
       });
     });
     setAllKeys(newAllKeys);
-  }, [data]);
 
-  useEffect(() => {
     // Reset resultData when searchedData changes
     setResultData(searchedData);
-    if (searchedData.length == 0) {
-      noti('There is no such data. Showing all data instead!')
+
+    // Show notification based on the condition
+    if (searchedData.length === 0) {
+      noti('There is no such data. Showing all data instead!');
     } else {
-      noti('Showing searched results.')
+      noti('Showing searched results.');
     }
-  }, [searchedData]);
+  }, [data, searchedData]);
+
   // ? search end
 
   // Notification
@@ -280,7 +288,7 @@ const PatientList = ({ show }) => {
             <div className="flex flex-col md:flex-row w-full gap-3 justify-between">
               <div className='relative flex md:w-1/2'>
                 <div onClick={statusBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
-                  {Status == ''? 'Status All': `${Status}`}
+                  {Status == '' ? 'Status All' : `${Status}`}
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
                   </div>
@@ -294,7 +302,7 @@ const PatientList = ({ show }) => {
 
               <div className='relative flex md:w-1/2'>
                 <div onClick={breedBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
-                {Breed == ''? 'Breed All': `${Breed}`}
+                  {Breed == '' ? 'Breed All' : `${Breed}`}
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" height="22" width="14" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg>
                   </div>
@@ -320,7 +328,7 @@ const PatientList = ({ show }) => {
               <p className='commonText'>Rows per page:</p>
 
               <div ref={rppBtn} onClick={rppBtnClicked} id="rowsPerPage" className='rppBtn'>
-              {RPP == ''? '10': `${RPP}`}
+                {RPP == '' ? '10' : `${RPP}`}
                 <img src={Down} className='w-3 h-3 mt-[4px]' alt="icon" />
                 <div ref={rppList} className="rppList">
                   <p className='rppItems' onClick={rpp5}>5</p>
@@ -332,8 +340,8 @@ const PatientList = ({ show }) => {
         </div>
 
         {/* data table */}
-        <div className={`py-5 w-full overflow-x-scroll ${showModal ? 'opacity-50' : ''}`}>
-          <table className='min-w-[1250px] lg:w-full' >
+        <div className={`py-5 w-full overflow-x-scroll overflow-y-scroll ${showModal ? 'opacity-50' : ''}`}>
+          <table className='min-w-[1250px] h-fit lg:w-full' >
             <thead>
               <tr align='left' className='h-[40px] title border-2 border-y-[#44444480]'>
                 <th className='w-[30px] md:min-w-[2%]  py-[9px]'><input type="checkbox" className="w-[30px]" /></th>
@@ -354,7 +362,7 @@ const PatientList = ({ show }) => {
               {
                 resultData.length == 0 ? (
                   data.map((d, i) => (
-                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'none' : ''} `} >
+                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'hidden' : ''} ${i < RPP ? '' : 'hidden'} `} >
                       <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
                       <td>{d.id}</td>
                       <td>{d.name}</td>
@@ -381,12 +389,8 @@ const PatientList = ({ show }) => {
                     </tr>
                   ))
                 ) : (
-
                   resultData.map((d, i) => (
-
-
-
-                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'none' : ''} `} >
+                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'hidden' : ''} ${i < RPP ? '' : 'hidden'} `} >
                       <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
                       <td>{d.id}</td>
                       <td>{d.name}</td>
@@ -411,8 +415,6 @@ const PatientList = ({ show }) => {
                         </Dropdown>
                       </td>
                     </tr>
-
-
                   ))
                 )
 

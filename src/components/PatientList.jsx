@@ -19,6 +19,7 @@ import { AlertModal } from './Alert';
 
 const Container = styled.div`
   background-color: whitesmoke;
+  margin: 10px;
 `;
 
 
@@ -147,6 +148,11 @@ const PatientList = ({ show }) => {
     // console.log('rpp10 called')
     setRPP(10)
   }
+
+  const rpp20 = () => {
+    // console.log('rpp10 called')
+    setRPP(20)
+  }
   // Row per page end
 
   // ? search
@@ -189,6 +195,11 @@ const PatientList = ({ show }) => {
       console.log('searched data >>> ', resultData);
       setResultData(searchedData)
 
+      if (searchedData.length === 0) {
+        noti('There is no such data. Showing all data instead!');
+      } else {
+        noti('Showing searched results.');
+      }
     }
   };
   const handleKeyPress = (e) => {
@@ -198,8 +209,8 @@ const PatientList = ({ show }) => {
   };
 
   useEffect(() => {
-    setRPP(10)
-    console.log("use effect called");
+    setRPP(20)
+    console.log("use effect [data, searchedData] called");
 
     // Initialize allKeys when data changes
     const newAllKeys = [];
@@ -214,14 +225,8 @@ const PatientList = ({ show }) => {
 
     // Reset resultData when searchedData changes
     setResultData(searchedData);
-
-    // Show notification based on the condition
-    if (searchedData.length === 0) {
-      noti('There is no such data. Showing all data instead!');
-    } else {
-      noti('Showing searched results.');
-    }
   }, [data, searchedData]);
+
 
   // ? search end
 
@@ -268,7 +273,7 @@ const PatientList = ({ show }) => {
 
   return (
     <Container>
-      <div className='relative w-[100vw] h-[100vh] mx-auto'>
+      <div className='relative w-full h-full'>
         {/* upper container */}
         <div className={`flex flex-col md:flex-row p-5 justify-between w-full md:h-[185px] h-[300px] ${showModal || showAlert ? 'opacity-50' : ''}`}>
           {/* left container */}
@@ -333,6 +338,7 @@ const PatientList = ({ show }) => {
                 <div ref={rppList} className="rppList">
                   <p className='rppItems' onClick={rpp5}>5</p>
                   <p className='rppItems' onClick={rpp10}>10</p>
+                  <p className='rppItems' onClick={rpp20}>20</p>
                 </div>
               </div>
             </div>
@@ -341,7 +347,7 @@ const PatientList = ({ show }) => {
 
         {/* data table */}
         <div className={`py-5 w-full overflow-x-scroll overflow-y-scroll ${showModal ? 'opacity-50' : ''}`}>
-          <table className='min-w-[1250px] h-fit lg:w-full' >
+          <table className='min-w-[1250px] h-fit lg:w-full mb-10' >
             <thead>
               <tr align='left' className='h-[40px] title border-2 border-y-[#44444480]'>
                 <th className='w-[30px] md:min-w-[2%]  py-[9px]'><input type="checkbox" className="w-[30px]" /></th>

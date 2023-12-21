@@ -45,15 +45,13 @@
 }
 
 .outlineBtn,
-.blueBtn,
-.outlineBtnSec {
+.blueBtn {
   border-radius: 11px;
   height: 30px;
   cursor: pointer;
 }
 
-.outlineBtn,
-.outlineBtnSec {
+.outlineBtn {
   border: 2px solid #4c4c4c;
 }
 
@@ -101,10 +99,57 @@
   padding-top: 3px;
 }
 
-.outlineBtnSec {
-  background-color: #fff;
+/* row per page */
+.rppBtn {
+  padding: 3px;
+  border: 2px solid rgba(76, 76, 76, 0.7);
+  height: 28px;
+  width: 50px;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
   color: #54bab9;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  align-items: start;
 }
+
+.rppList {
+  text-align: center;
+  display: none;
+  padding: 2px;
+}
+
+.rppList>p {
+  line-height: 20px;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.rppList.active {
+  height: fit-content;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  line-height: 22px;
+  width: 50px;
+  top: 30px;
+  left: 0;
+  border: 2px solid #bfbfbf;
+  background-color: rgba(245, 245, 245, 1);
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.rppItems:hover {
+  background-color: skyblue;
+  color: #4c4c4c;
+  border-radius: 8px;
+}
+/* row per page end */
 
 label {
   color: #4c4c4c;

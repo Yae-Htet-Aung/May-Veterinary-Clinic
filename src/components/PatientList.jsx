@@ -5,7 +5,7 @@ import { Modal } from './Modal'
 import { Dropdown } from 'flowbite-react';
 import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
-import toast, { Toaster, resolveValue } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Success from '../assets/resources/success.png'
 import { IoMdClose } from "react-icons/io";
 // pictures
@@ -13,6 +13,7 @@ import Allergy from '../assets/resources/allergy.png'
 import Search from '../assets/resources/search.png'
 import Add from '../assets/resources/add.png'
 import PickyEater from '../assets/resources/picky eater.png'
+import Down from '../assets/resources/green_down.png'
 import { AlertModal } from './Alert';
 
 
@@ -41,7 +42,7 @@ const PatientList = ({ show }) => {
 
   const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
 
-  
+
   // get data from modal
   const createData = (e) => {
     setData([e, ...data])
@@ -84,43 +85,65 @@ const PatientList = ({ show }) => {
     console.log('food clk')
     const filteredData = data.filter(item => item.status == '2');
     setResultData(filteredData);
-     statusBtn.current.classList.toggle('active')
+    statusBtn.current.classList.toggle('active')
   }
 
   const pickyClicked = () => {
     console.log('picky clk')
     const filteredData = data.filter(item => item.status == '1');
     setResultData(filteredData);
-     statusBtn.current.classList.toggle('active')
+    statusBtn.current.classList.toggle('active')
   }
 
   const beagleClicked = () => {
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Beagle');
     setResultData(filteredData);
-     breedBtn.current.classList.toggle('active')
+    breedBtn.current.classList.toggle('active')
   }
 
   const grClicked = () => {
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Golden Retriever');
     setResultData(filteredData);
-     breedBtn.current.classList.toggle('active')
+    breedBtn.current.classList.toggle('active')
   }
-  
+
   const spanielClicked = () => {
     console.log('picky clk')
     const filteredData = data.filter(item => item.breed == 'Spaniel');
     setResultData(filteredData);
-     breedBtn.current.classList.toggle('active')
+    breedBtn.current.classList.toggle('active')
+  }
+  const rppBtn = useRef(null)
+  const rppList = useRef(null)
+
+
+  const rppBtnClicked = () => {
+    rppList.current.classList.toggle('active')
+  }
+
+  const rpp5 = () => {
+    // console.log('rpp5 called')
+    
+  }
+
+  const rpp10 = () => {
+    // console.log('rpp10 called')
+
   }
   // filter end
 
   // ? search
-  
-  // Initialize an empty array to store unique keys
-  const allKeys = [];
-  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedData, setSearchedData] = useState([]);
+
+  const onChangeSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const [allKeys, setAllKeys] = useState([]) // Initialize an empty array to store unique keys
+
   // Iterate through each object in the array
   data.forEach(obj => {
     // Iterate through the keys of each object
@@ -132,20 +155,55 @@ const PatientList = ({ show }) => {
       }
     });
   });
-  
-  console.log('test result >>>> ', allKeys);
-  
-  const searchTerm = 'bin';
 
-  const searchResults = allKeys.map((key) => (
-    data.filter(item => {
-      // Customize the condition based on your search criteria
-      return item[key].toLowerCase().includes(searchTerm.toLowerCase());
-    })
-  ));
-  
-  console.log(searchResults);
-  
+  const handleSearch = () => {
+    console.log('search term :', searchTerm)
+    if (searchTerm == '') {
+      setResultData(data)
+    } else {
+      // Perform the search based on the searchTerm
+      const searchResults = allKeys.reduce((accumulator, key) => {
+        const filteredItems = data.filter(item => (
+          item[key].toLowerCase().includes(searchTerm.toLowerCase())
+        ));
+
+        return accumulator.concat(filteredItems);
+      }, []);
+
+      setSearchedData(searchResults);
+      console.log('searched data >>> ', resultData);
+      setResultData(searchedData)
+      
+    }
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  useEffect(() => {
+    // Initialize allKeys when data changes
+    const newAllKeys = [];
+    data.forEach((obj) => {
+      Object.keys(obj).forEach((key) => {
+        if (!newAllKeys.includes(key)) {
+          newAllKeys.push(key);
+        }
+      });
+    });
+    setAllKeys(newAllKeys);
+  }, [data]);
+
+  useEffect(() => {
+    // Reset resultData when searchedData changes
+    setResultData(searchedData);
+    if (searchedData.length == 0) {
+      noti('There is no such data. Showing all data instead!')
+    } else {
+      noti('Showing searched results.')
+    }
+  }, [searchedData]);
   // ? search end
 
   // Notification
@@ -198,9 +256,14 @@ const PatientList = ({ show }) => {
           <div className="flex flex-col gap-5 justify-end shrink-0 w-full md:w-[300px] md:h-full">
             <p className='text-[22px] title'>Patient List</p>
             {/* search */}
+            {/* todo */}
             <div className="flex relative ">
-              <input type="text" placeholder='Search table' className='outlineBtn text-[#4c4c4c] w-full px-3' />
-              <img src={Search} alt="" className='w-[15px] h-[15px] absolute top-[8px] right-[15px] ' />
+              {/* <input type="text" value={searchTerm} onChange={onChangeSearchTerm} /> */}
+              <input type="text" value={searchTerm} placeholder='Search table'
+                onKeyPress={handleKeyPress}
+                onChange={(e) => { onChangeSearchTerm(e) }}
+                className='outlineBtn text-[#4c4c4c] w-full px-3' />
+              <img src={Search} onClick={() => handleSearch()} alt="" className='w-[15px] h-[15px] absolute top-[8px] right-[15px] ' />
             </div>
             {/* filter */}
             <div className="flex w-full gap-3 justify-between">
@@ -214,7 +277,7 @@ const PatientList = ({ show }) => {
                 <div ref={statusBtn} className="filterBtn">
                   <p className='filterItems' onClick={statusAllClicked}>Status All</p>
                   <p className='filterItems' onClick={foodClicked}>Allergy</p>
-                  <p className='filterItems'onClick={pickyClicked}>Picky Eater</p>
+                  <p className='filterItems' onClick={pickyClicked}>Picky Eater</p>
                 </div>
               </div>
 
@@ -244,10 +307,15 @@ const PatientList = ({ show }) => {
 
             <div className="flex gap-5 md:justify-between items-center">
               <p className='commonText'>Rows per page:</p>
-              <select id="rowsPerPage" className='outlineBtnSec px-[5px] flex justify-center'>
-                <option value="10">10</option>
-                <option value="20">20</option>
-              </select>
+
+              <div ref={rppBtn} onClick={rppBtnClicked} id="rowsPerPage" className='rppBtn'>
+                5
+                <img src={Down} className='w-3 h-3 mt-[4px]' alt="icon" />
+                <div ref={rppList} className="rppList">
+                  <p className='rppItems' onClick={rpp5}>5</p>
+                  <p className='rppItems' onClick={rpp10}>10</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -272,10 +340,10 @@ const PatientList = ({ show }) => {
             </thead>
 
             <tbody>
-              { 
-              resultData.length == 0 ? (
-                data.map((d, i) => (
-                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == ''? 'none': ''} `} >
+              {
+                resultData.length == 0 ? (
+                  data.map((d, i) => (
+                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'none' : ''} `} >
                       <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
                       <td>{d.id}</td>
                       <td>{d.name}</td>
@@ -300,43 +368,43 @@ const PatientList = ({ show }) => {
                         </Dropdown>
                       </td>
                     </tr>
-                  )) 
-              ):(
-                
-                resultData.map((d, i) => (
-                  
-                  
+                  ))
+                ) : (
 
-                  <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == ''? 'none': ''} `} >
-                    <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
-                    <td>{d.id}</td>
-                    <td>{d.name}</td>
-                    <td>
-                      {d.status === '1' ? (
-                        <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
-                      ) : (
-                        <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
-                      )}
-                    </td>
-                    <td>{d.parent}</td>
-                    <td>{d.breed}</td>
-                    <td>{d.gender}</td>
-                    <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
-                    <td>{d.phone}</td>
-                    <td>{d.address} {d.township} {d.city}</td>
-                    <td className='min-w-[50px]'>
-                      <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
-                        renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
-                        <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteBtn(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
-                      </Dropdown>
-                    </td>
-                  </tr>
+                  resultData.map((d, i) => (
 
-                  
-                )) 
-              )
-                                 
+
+
+                    <tr key={i} className={`h-[40px] border border-b-[#44444480] ${d.parent == '' ? 'none' : ''} `} >
+                      <td className='w-[30px]  py-[9px]'><input type="checkbox" className="w-[30px]" /></td>
+                      <td>{d.id}</td>
+                      <td>{d.name}</td>
+                      <td>
+                        {d.status === '1' ? (
+                          <img src={PickyEater} alt="" className="w-[13px] h-[13px]" />
+                        ) : (
+                          <img src={Allergy} alt="" className="w-[13px] h-[13px]" />
+                        )}
+                      </td>
+                      <td>{d.parent}</td>
+                      <td>{d.breed}</td>
+                      <td>{d.gender}</td>
+                      <td>{(new Date(d.dob)).toLocaleDateString('en-GB').replace(/\//g, '.')}</td>
+                      <td>{d.phone}</td>
+                      <td>{d.address} {d.township} {d.city}</td>
+                      <td className='min-w-[50px]'>
+                        <Dropdown label="" placement="left" className='w-[130px] dropdownOption'
+                          renderTrigger={() => <span><IconDotsVertical size={17} color='#54bab9' /></span>}>
+                          <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { setParamsData(data[i]), setShowModal(true) }} ><IconPencil size={17} color='#a2e22d' /><span>Edit</span></Dropdown.Item>
+                          <Dropdown.Item className='bg-stone-100 dropdownItems' onClick={() => { deleteBtn(d.id) }}><FITrash size={17} color='red' /><span>Delete</span></Dropdown.Item>
+                        </Dropdown>
+                      </td>
+                    </tr>
+
+
+                  ))
+                )
+
               }
             </tbody>
 

@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { useSpring, animated } from 'react-spring';
-import styled from 'styled-components';
-import { MdClose, MdOutlineClose } from 'react-icons/md';
-import toast, { Toaster, resolveValue } from 'react-hot-toast';
+import React, { useRef, useEffect, useCallback, useState } from 'react'
+import styled from 'styled-components'
+import { MdOutlineClose } from 'react-icons/md'
+import toast from 'react-hot-toast'
 import Success from '../assets/resources/success.png'
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io"
 
 const ModalWrapper = styled.div`
   background: #fff;  
@@ -22,25 +21,25 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
     setData({
       ...data,
       [e.target.name]: e.target.value
-    });
+    })
   }
 
-  const modalRef = useRef();
+  const modalRef = useRef()
 
   const closeModal = e => {
-    console.log("closeModal called")
-    setShowModal(false);
-  };
+    // console.log("closeModal called")
+    setShowModal(false)
+  }
 
   const keyPress = useCallback(
     e => {
       if (e.key === 'Escape' && show) {
-        closeModal();
-        console.log('Escape pressed');
+        closeModal()
+        // console.log('Escape pressed')
       }
     },
     [show, setShowModal]
-  );
+  )
 
   useEffect(() => {
     setData(paramsData)
@@ -48,11 +47,11 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
 
   useEffect(
     () => {
-      document.addEventListener('keydown', keyPress);
-      return () => document.removeEventListener('keydown', keyPress);
+      document.addEventListener('keydown', keyPress)
+      return () => document.removeEventListener('keydown', keyPress)
     },
     [keyPress]
-  );
+  )
 
   const handleSave = () => {
     createData(data), closeModal()
@@ -246,5 +245,5 @@ export const Modal = ({ show, setShowModal, createData, updateData, paramsData }
         </div>
       ) : null}
     </>
-  );
-};
+  )
+}

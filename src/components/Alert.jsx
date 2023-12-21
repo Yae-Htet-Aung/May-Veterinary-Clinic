@@ -1,58 +1,55 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { useSpring, animated } from 'react-spring';
-import styled from 'styled-components';
-import { MdClose, MdOutlineClose } from 'react-icons/md';
-import toast, { Toaster, resolveValue } from 'react-hot-toast';
+import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { useSpring, animated } from 'react-spring'
+import styled from 'styled-components'
+import { MdClose, MdOutlineClose } from 'react-icons/md'
+import toast, { Toaster, resolveValue } from 'react-hot-toast'
 import Success from '../assets/resources/success.png'
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io"
 
 const ModalWrapper = styled.div`
   background: #fff;  
   position: relative;
   z-index: 10;
   border-radius: 10px;
-`;
+`
 
 export const AlertModal = ({ noti, idToDel, showAlert, setShowAlert, data, setData }) => {
   // console.log('id to del >> ', idToDel)
   // console.log('data (alert modal) >> ', data)
   
   const handleDelete = (e) => {
-    const checkData = data.filter(item => item.id !== idToDel);
+    const checkData = data.filter(item => item.id !== idToDel)
     console.log('checkData >> ', checkData)
-    setData(checkData);
+    setData(checkData)
     setShowAlert(false)
     noti('Patient is successfully deleted!')
   }
 
   // Modal
-  const modalRef = useRef();
+  const modalRef = useRef()
 
   const closeModal = e => {
     console.log("closeModal called")
-    // if (modalRef.current === e.target) {
-    //   setShowAlert(false);
-    // }
-    setShowAlert(false);
-  };
+    setShowAlert(false)
+  }
 
   const keyPress = useCallback(
     e => {
       if (e.key === 'Escape' && showAlert) {
-        setShowAlert(false);
-        console.log('Escape pressed');
+        setShowAlert(false)
+        console.log('Escape pressed')
       }
     },
     [showAlert, setShowAlert]
-  );
+  )
 
   useEffect(
     () => {
-      document.addEventListener('keydown', keyPress);
-      return () => document.removeEventListener('keydown', keyPress);
+      document.addEventListener('keydown', keyPress)
+      return () => document.removeEventListener('keydown', keyPress)
     },
     [keyPress]
-  );
+  )
   // Modal end
 
 
@@ -95,5 +92,5 @@ export const AlertModal = ({ noti, idToDel, showAlert, setShowAlert, data, setDa
         </div>
       ) : null}
     </>
-  );
-};
+  )
+}

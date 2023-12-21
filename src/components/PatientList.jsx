@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import { useState } from 'react'
 import { Modal } from './Modal'
-import { Dropdown } from 'flowbite-react';
+import { Dropdown } from 'flowbite-react'
 import { IconDotsVertical, IconPencil } from '@tabler/icons-react'
 import { FITrash } from '@icongo/fi'
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'
 import Success from '../assets/resources/success.png'
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io"
 // pictures
 import Allergy from '../assets/resources/allergy.png'
 import Search from '../assets/resources/search.png'
@@ -15,19 +15,20 @@ import Add from '../assets/resources/add.png'
 import PickyEater from '../assets/resources/picky eater.png'
 import BlueDown from '../assets/resources/green_down.png'
 import BlackDown from '../assets/resources/black_down.png'
-import { AlertModal } from './Alert';
+import { AlertModal } from './Alert'
 
 
 const Container = styled.div`
   background-color: whitesmoke;
   margin: 20px;
-`;
-
+`
 
 const PatientList = ({ show }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-{/* beagle golden retriever spaniel */}
+  const [showModal, setShowModal] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [paramsData, setParamsData] = useState({})
+  const [idToDel, setIdToDel] = useState('')
+  const [resultData, setResultData] = useState([])
   const [data, setData] = useState([
     { id: 'B-0001', name: 'Milo Khris', status: 'picky eater', parent: 'Phyo Min', breed: 'spaniel', gender: 'Male', dob: '2023-12-07', phone: '09 877 766 345', address: 'No.35 Thirihaymar St, Zawana Qtr', township: 'Yankin', city: 'Yangon' },
     { id: 'B-0002', name: 'Bella Brown', status: 'allergy', parent: 'Bo Bo', breed: 'golden retriever', gender: 'Female', dob: '2022-01-07', phone: '09 232 766 345', address: 'No. 90 BoAung St, MarGa Qtr', township: 'Yankin', city: 'Yangon' },
@@ -43,12 +44,8 @@ const PatientList = ({ show }) => {
     { id: 'B-0011', name: 'Kelvin Kate', status: 'allergy', parent: 'Zayar Naing', breed: 'golden retriever', gender: 'Male', dob: '2000-01-07', phone: '09 232 111 111', address: 'No. 90 Zayar Qtr', township: 'Tamwe', city: 'Yangon' },
     { id: 'B-0012', name: 'Honey', status: 'allergy', parent: 'Mg Yae', breed: 'golden retriever', gender: 'Male', dob: '2021-02-06', phone: '09 877 111 666', address: 'No. 32, 122 Ward', township: 'S. Tamwe', city: 'Yangon' }
   ])
-  const [paramsData, setParamsData] = useState({})
-  const [idToDel, setIdToDel] = useState('')
-  const [resultData, setResultData] = useState([])
 
   const generateId = `B-${Math.floor(Math.random() * 10000) + 1}`
-
 
   // get data from modal
   const createData = (e) => {
@@ -58,7 +55,7 @@ const PatientList = ({ show }) => {
   }
 
   const deleteBtn = (id) => {
-    console.log('deleteBtn clicked')
+    // console.log('deleteBtn clicked')
     setShowAlert(true)
     setIdToDel(id)
   }
@@ -66,8 +63,8 @@ const PatientList = ({ show }) => {
   const updateData = (id, newData) => {
     const updatedData = data.map(item =>
       item.id === id ? newData : item
-    );
-    setData(updatedData);
+    )
+    setData(updatedData)
     noti('Patient is successfully updated!')
   }
 
@@ -89,17 +86,17 @@ const PatientList = ({ show }) => {
   }
   const allergyClicked = () => {
     setStatus('Allergy')
-    console.log('allergy clk')
-    const filteredData = data.filter(item => item.status == 'allergy');
-    setResultData(filteredData);
+    // console.log('allergy clk')
+    const filteredData = data.filter(item => item.status == 'allergy')
+    setResultData(filteredData)
     statusBtn.current.classList.toggle('active')
   }
 
   const pickyClicked = () => {
     setStatus('Picky Eater')
-    console.log('picky clk')
-    const filteredData = data.filter(item => item.status == 'picky eater');
-    setResultData(filteredData);
+    // console.log('picky clk')
+    const filteredData = data.filter(item => item.status == 'picky eater')
+    setResultData(filteredData)
     statusBtn.current.classList.toggle('active')
   }
 
@@ -109,25 +106,25 @@ const PatientList = ({ show }) => {
   }
   const beagleClicked = () => {
     setBreed('Beagle')
-    console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'beagle');
-    setResultData(filteredData);
+    // console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'beagle')
+    setResultData(filteredData)
     breedBtn.current.classList.toggle('active')
   }
 
   const grClicked = () => {
     setBreed('Golden Retriever')
-    console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'golden retriver');
-    setResultData(filteredData);
+    // console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'golden retriver')
+    setResultData(filteredData)
     breedBtn.current.classList.toggle('active')
   }
 
   const spanielClicked = () => {
     setBreed('Spaniel')
-    console.log('picky clk')
-    const filteredData = data.filter(item => item.breed == 'spaniel');
-    setResultData(filteredData);
+    // console.log('picky clk')
+    const filteredData = data.filter(item => item.breed == 'spaniel')
+    setResultData(filteredData)
     breedBtn.current.classList.toggle('active')
   }
   // filter end
@@ -158,84 +155,74 @@ const PatientList = ({ show }) => {
   // Row per page end
 
   // ? search
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchedData, setSearchedData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchedData, setSearchedData] = useState([])
 
   const onChangeSearchTerm = (e) => {
-    setSearchTerm(e.target.value);
-  };
+    setSearchTerm(e.target.value)
+  }
 
-  const [allKeys, setAllKeys] = useState([]) // Initialize an empty array to store unique keys
+  const [allKeys, setAllKeys] = useState([]) 
 
-  // Iterate through each object in the array
   data.forEach(obj => {
-    // Iterate through the keys of each object
     Object.keys(obj).forEach(key => {
-      // Check if the key is not already in the allKeys array
       if (!allKeys.includes(key)) {
-        // Add the key to the allKeys array
-        allKeys.push(key);
+        allKeys.push(key)
       }
-    });
-  });
+    })
+  })
 
   const handleSearch = () => {
-    console.log('keys >> ', allKeys)
-    console.log('search term :', searchTerm)
+    // console.log('keys >> ', allKeys)
+    // console.log('search term :', searchTerm)
     if (searchTerm == '') {
       setResultData(data)
     } else {
-      // Perform the search based on the searchTerm
       const searchResults = allKeys.reduce((accumulator, key) => {
         const filteredItems = data.filter(item => (
           item[key].toLowerCase().includes(searchTerm.toLowerCase())
-        ));
+        ))
+        return accumulator.concat(filteredItems)
+      }, [])
 
-        return accumulator.concat(filteredItems);
-      }, []);
-
-      setSearchedData(searchResults);
-      console.log('searched data >>> ', resultData);
+      setSearchedData(searchResults)
+      // console.log('searched data >> ', resultData)
       setResultData(searchedData)
 
       if (searchedData.length == 0) {
-        noti('There is no such data. Showing all data instead!');
+        noti('There is no such data. Showing all data instead!')
       } else {
-        noti('Showing searched results.');
+        noti('Showing searched results.')
       }
     }
-  };
+  }
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleSearch()
     }
-  };
+  }
 
   useEffect(() => {
     setRPP(20)
-    console.log("use effect [data, searchedData] called");
 
-    // Initialize allKeys when data changes
-    const newAllKeys = [];
+    const newAllKeys = []
     data.forEach((obj) => {
       Object.keys(obj).forEach((key) => {
         if (!newAllKeys.includes(key)) {
-          newAllKeys.push(key);
+          newAllKeys.push(key)
         }
-      });
-    });
-    setAllKeys(newAllKeys);
+      })
+    })
+    setAllKeys(newAllKeys)
 
-    // Reset resultData when searchedData changes
-    setResultData(searchedData);
-  }, [data, searchedData]);
+    setResultData(searchedData)
+  }, [data, searchedData])
 
 
-  // ? search end
+  // search end
 
-  // Notification
+  // ? Notification
   const noti = (msg) => {
-    // custom toast
     toast.custom((t) => (
       <div
         className={`${t.visible ? 'animate-enter' : 'animate-leave'} 
@@ -272,7 +259,6 @@ const PatientList = ({ show }) => {
 
   // Opacity
   show(showModal, showAlert)
-  // Opacity end
 
   return (
     <Container>
@@ -282,8 +268,8 @@ const PatientList = ({ show }) => {
           {/* left container */}
           <div className="flex flex-col gap-5 justify-end shrink-0 w-full md:w-[350px] md:h-full">
             <p className='text-[22px] title'>Patient List</p>
+            
             {/* search */}
-            {/* todo */}
             <div className="flex relative ">
               {/* <input type="text" value={searchTerm} onChange={onChangeSearchTerm} /> */}
               <input type="text" value={searchTerm} placeholder='Search table'
@@ -292,7 +278,8 @@ const PatientList = ({ show }) => {
                 className='outlineBtn text-[#4c4c4c] w-full px-3' />
               <img src={Search} onClick={() => handleSearch()} alt="" className='w-[15px] h-[15px] absolute top-[8px] right-[15px] ' />
             </div>
-            {/* filter */}
+            
+            {/* Sorting */}
             <div className="flex flex-col md:flex-row w-full gap-3 justify-between">
               <div className='relative flex md:w-1/2'>
                 <div onClick={statusBtnClick} className="flex w-full h-[30px] justify-between items-center px-4 outlineBtn">
@@ -321,7 +308,6 @@ const PatientList = ({ show }) => {
                   <p className='filterItems' onClick={spanielClicked}>Spaniel</p>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -434,11 +420,8 @@ const PatientList = ({ show }) => {
                     </tr>
                   ))
                 )
-
               }
             </tbody>
-
-
           </table>
         </div>
 
@@ -448,7 +431,7 @@ const PatientList = ({ show }) => {
           {/* {console.log('*** >>> ', typeof(showModal))} */}
         </div>
 
-        {/* Delete Modal */}
+        {/* Delete Alert Modal */}
         <div className={showAlert ? 'fixed top-[50%] left-[50%] transition-transform -translate-x-1/2 -translate-y-1/2' : ''}>
           <AlertModal noti={noti} idToDel={idToDel} showAlert={showAlert} setShowAlert={setShowAlert} data={data} setData={setData} />
           {/* {console.log('*** >>> ', typeof(showModal))} */}

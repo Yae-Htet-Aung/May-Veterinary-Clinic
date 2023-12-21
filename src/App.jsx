@@ -1,9 +1,9 @@
 
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
 import './App.css'
 import Navigation from './components/Navigation'
 import PatientList from './components/PatientList'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 function App() {
   const [ showModal, setShowModal ] = useState(false)

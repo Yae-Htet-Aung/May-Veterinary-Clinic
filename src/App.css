@@ -221,6 +221,8 @@ textarea {
   top: 33px;
   left: 0;
   width: 100%;
+  z-index: 10;
+  gap: 5px;
   border: 2px solid #bfbfbf;
   background-color: rgba(245, 245, 245, 1);
   border-radius: 12px;
